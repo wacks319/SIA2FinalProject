@@ -1,0 +1,87 @@
+/* Dashboard.css */
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.dashboard {
+  color: black;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
+
+.image-section {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.image-section img {
+  width: 100%;
+  height: auto;
+  display: block;
+
+}
+
+.h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: black;
+  margin-bottom: 10px;
+}
+
+.h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: black;
+  margin-bottom: 20px;
+
+}
+
+.dashboard p {
+  font-size: 1rem;
+  font-weight: 400;
+  color: black;
+  line-height: 1.6;
+  margin-bottom: 20px;
+
+}
+
+.main-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 600px;
+}
+
+.text {
+  width: 100%;
+  max-width: 800px;
+  text-align: justify;
+}
+
+
+@media screen and (max-width: 768px) {
+  .h1 {
+    font-size: 2rem;
+  }
+
+  .h2 {
+    font-size: 1.3rem;
+  }
+
+  .dashboard p {
+    font-size: 0.9rem;
+  }
+
+  .text {
+    max-width: 90%;
+  }
+}

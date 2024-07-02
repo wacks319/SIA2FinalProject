@@ -1,0 +1,26 @@
+* {
+  text-decoration: none;
+}
+  
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #FFFFFF;
+    color: #000000;
+  }
+
+  
+  @media screen and (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      height: auto;
+      gap: 20px;
+      padding: 10px;
+    }
+    
+    .navbar-btn {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+  
