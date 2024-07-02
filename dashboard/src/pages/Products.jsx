@@ -10,7 +10,7 @@ function Menu() {
     }, [])
 
     const fetchMenu = async () => {
-        const menu = await axios.get('http://192.168.10.24:3004/getallproducts')
+        const menu = await axios.get('http://192.168.1.105:3004/getallproducts')
         setValues(menu?.data?.data)
     }
     return (
@@ -21,7 +21,7 @@ function Menu() {
                     values?.map((pro) => (
                         <div key={pro?._id} className="card">
                             <div className="image-container">
-                                <img src={`http://192.168.10.24:3004/uploads/${pro?.image}`} alt='' />
+                                <img src={`http://192.168.1.105:3004/uploads/${pro?.image}`} alt='' />
                             </div>
                             <div className='label'>
                             <h3>{pro?.name}</h3>

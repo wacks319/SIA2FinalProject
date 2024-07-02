@@ -7,8 +7,7 @@ const Register = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
-    password: '',
-    userRole: ''
+    password: ''
   });
 
   const [message, setMessage] = useState('');
@@ -24,9 +23,9 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://192.168.10.24:3004/api/users', formData);
+      const response = await axios.post('http://192.168.1.105:3004/api/users', formData);
       setMessage(response.data.message);
-      setFormData({ username: '', email: '', password: '', userRole: '' });
+      setFormData({ username: '', email: '', password: ''});
       setErrors({});
     } catch (error) {
       if (error.response) {
@@ -87,26 +86,6 @@ const Register = () => {
               helperText={errors.password}
               required
             />
-          </Box>
-          <Box className="form-group">
-            <FormControl fullWidth variant="outlined" margin="normal" error={!!errors.userRole}>
-              <InputLabel>User Role</InputLabel>
-              <Select
-                name="userRole"
-                value={formData.userRole}
-                onChange={handleChange}
-                label="User Role"
-                required
-              >
-                <MenuItem value="user">User</MenuItem>
-                <MenuItem value="admin">Admin</MenuItem>
-              </Select>
-            </FormControl>
-            {errors.userRole && (
-              <Typography variant="caption" color="error">
-                {errors.userRole}
-              </Typography>
-            )}
           </Box>
           <Box className="button-container">
             <Button type="submit" variant="contained" color="primary" size="large">
