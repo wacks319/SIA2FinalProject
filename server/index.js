@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const app = express();
  
 const PORT = process.env.PORT || 3004;
-const HOST = '192.168.1.105'
+const HOST = '192.168.10.24'
  
 const adminModel = require('./models/adminData.js');
 const Products = require('./models/productModel.js');
@@ -52,8 +52,8 @@ const ConnectToDatabase = async () => {
     }
 }
  
-app.listen(3004, '192.168.1.105', () => {
-    console.log(`Listening: http://192.168.1.105:3004`);
+app.listen(3004, '192.168.10.24', () => {
+    console.log(`Listening: http://192.168.10.24:3004`);
 })
  
 ConnectToDatabase()

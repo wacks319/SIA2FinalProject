@@ -22,7 +22,7 @@ const userSchema = new Schema({
   },
   userRole: {
     type: String,
-    enum: ['user', 'admin'], // Example roles, adjust as per your application needs
+    enum: ['user', 'admin', 'inventory'], // Example roles, adjust as per your application needs
     default: 'user'
   },
   createdAt: {
