@@ -1,0 +1,82 @@
+/* ManageAccount.css */
+ 
+.manage-account-container {
+    display: flex;
+    flex-direction: row;
+  }
+ 
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 300px;
+    background-color: #0C1C8D;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+ 
+  .sidebar-link {
+    color: white;
+    text-decoration: none;
+    margin: 15px 0;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+ 
+  .sidebar-link:hover {
+    background-color: rgb(158, 158, 158);
+    color: #323031;
+  }
+ 
+  .content {
+    margin-left: 300px; /* Adjust to account for the sidebar */
+    padding: 20px;
+    width: 100%;
+  }
+ 
+  .content {
+  padding: 20px;
+}
+ 
+.content h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Poppins', sans-serif;
+}
+ 
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  font-family: 'Poppins', sans-serif;
+}
+ 
+.user-table th, .user-table td {
+  padding: 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+ 
+.user-table th {
+  background-color: #f2f2f2;
+}
+ 
+.user-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+ 
+.actions {
+  display: flex;
+  gap: 10px; /* Space between icons */
+  justify-content: center;
+}
+ 
+.actions .MuiIconButton-root {
+  padding: 5px;
+}

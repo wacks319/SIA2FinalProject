@@ -176,9 +176,8 @@ const AdminDashboard = () => {
     return (
         <div className="admin-dashboard-container">
             <div className="sidebar">
-                <Link to="/AdminDashboard" className="menu-item">Products</Link>
-                <div className="menu-item">Users</div>
-                <div className="menu-item">Reports</div>
+            <Link to="/AdminDashboard" className="sidebar-link">Manage Products</Link>
+            <Link to="/ManageAccount" className="sidebar-link">Manage Account</Link>
             </div>
 
             <div className="main-content">

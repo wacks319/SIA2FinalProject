@@ -1,87 +1,207 @@
-/* Dashboard.css */
-
-body,
-html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-
-.dashboard {
-  color: black;
-  text-align: center;
+.admin-dashboard-container {
   display: flex;
   flex-direction: column;
-
   align-items: center;
+  padding: 30px;
 }
 
-.image-section {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.image-section img {
-  width: 100%;
-  height: auto;
-  display: block;
-
-}
-
-.h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: black;
-  margin-bottom: 10px;
-}
-
-.h2 {
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: black;
-  margin-bottom: 20px;
-
-}
-
-.dashboard p {
-  font-size: 1rem;
-  font-weight: 400;
-  color: black;
-  line-height: 1.6;
-  margin-bottom: 20px;
-
-}
-
-.main-section {
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 300px;
+  background-color: #0C1C8D;
+  transition: left 0.3s ease;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 600px;
 }
 
-.text {
+.sidebar-link {
+  color: white;
+  text-decoration: none;
+  margin: 15px 0;
+  padding: 10px 15px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar-link:hover {
+  background-color: rgb(158, 158, 158);
+  color: #323031;
+}
+
+.header {
+  display: flex;
   width: 100%;
-  max-width: 800px;
-  text-align: justify;
+  align-items: center;
+  justify-content: center;
+  gap: 600px;
+
+}
+
+h2 {
+  color: #0C1C8D;
+}
+
+.header Button {
+  background-color: #0C1C8D;
+  color: #FFF;
+  padding: 9px 70px; /* Adjust padding to increase button width and height */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-weight: bold; /* Increase font weight */
+  height: auto; /* Ensure button adjusts height based on content */
+}
+
+.header Button:hover {
+  background-color: #FCDB00;
+  color: #0C1C8D;
+}
+
+/* modal */
+.view-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 3rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 19rem;
+  height: auto;
+     
+}
+
+.modal-forms {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 25px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+/* .card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border: blue 1px solid;
+
+} */
+
+.product-card {
+  width: 300px;
+  margin: 10px;
+  text-align: center;
+}
+
+.product-image {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+
+}
+
+.image-container {
+  width: 11rem;
+  height: 11rem;
+  border: 1px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.image-container img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.image-container h1 {
+  font-size: 1rem;
+}
+
+.btn-add{
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  gap: 15px;
+}
+
+.edit-menu-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: start;
+  gap: 1rem;
+  overflow: hidden;
+  padding: 10px;
+  /* border: 1px green solid; */
+}
+
+.label{
+  display: flex;
+  gap: 20px;
+  width: 100%;
+ justify-content: center;
+      /* border: 1px green solid; */
+}
+.description{
+  display: flex;
+  gap: 20px;
+  width: 100%;
+ justify-content:center;
+      /* border: 1px red solid; */
 }
 
 
-@media screen and (max-width: 768px) {
-  .h1 {
-    font-size: 2rem;
-  }
+.card-edit {
+  width: 15rem;
+  height: 15rem;
+  border: 0.5px solid grey;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  overflow: hidden;
+  /* border: 1px red solid; */
+  padding: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  .h2 {
-    font-size: 1.3rem;
-  }
+.card-edit .image-container {
+  width: 100%;
+  height: 60%;
+  border-radius: 10px;
+  /* overflow: hidden; */
+}
 
-  .dashboard p {
-    font-size: 0.9rem;
-  }
+.admin-btn{
+  display: flex;
+  /* background-color: red; */
+  gap: 5px;
+}
 
-  .text {
-    max-width: 90%;
-  }
+.card-edit:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }

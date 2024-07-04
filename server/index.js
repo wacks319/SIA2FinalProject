@@ -144,3 +144,26 @@ app.post('/editproduct', async (req, res) => {
     }
 });
  
+app.put('/edituser/:userId', async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const { username, email, userRole } = req.body;
+ 
+      console.log('Received data for updating user:', userId, username, email, userRole);
+ 
+      const updatedUser = await userModel.findByIdAndUpdate(userId, {
+        username,
+        email,
+        userRole
+      }, { new: true });
+ 
+      if (updatedUser) {
+        res.json({ success: true, message: 'User updated successfully!', data: updatedUser });
+      } else {
+        res.json({ success: false, message: 'Failed to update user!' });
+      }
+    } catch (error) {
+      console.error('Error updating user:', error);
+      res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+  });

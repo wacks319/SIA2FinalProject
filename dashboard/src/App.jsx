@@ -7,6 +7,8 @@ import './App.css';
 import Login from './pages/Login';
 import AdminDashboard from './pages/AdminDashboard';  
 import Register from './pages/Register'; 
+import ManageAccount from './pages/ManageAccount'; 
+
 function App() {
   return (
     <BrowserRouter>
@@ -17,6 +19,8 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
         <Route path="/Register" element={<Register />} />
+        <Route path="/ManageAccount" element={<ManageAccount />} />
+
       </Routes>
     </BrowserRouter>
   );
