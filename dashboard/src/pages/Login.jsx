@@ -36,7 +36,7 @@ function Login() {
       } else if (userRole === 'user') {
         navigate('/Products');
       } else if (userRole === 'inventory') {
-        navigate('/Register');
+        navigate('/InventoryDashboard');
       } else {
         navigate('Unknown user role:', userRole);
       }

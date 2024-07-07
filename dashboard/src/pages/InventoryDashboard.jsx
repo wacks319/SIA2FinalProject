@@ -176,14 +176,13 @@ const ManageProduct = () => {
     return (
         <div className="admin-dashboard-container">
             <div className="sidebar">
-            <Link to="/ManageProduct" className="sidebar-link">Manage Products</Link>
-            <Link to="/ManageAccount" className="sidebar-link">Manage Account</Link>
+            <Link to="/InventoryDashBoard" className="sidebar-link">Manage Products</Link>
             <Link to="/Report" className="sidebar-link">Reports</Link>
             </div>
 
             <div className="main-content">
                 <div className="header">
-                    <h2>Admin Dashboard</h2>
+                    <h2>Inventory Dashboard</h2>
                     <Button variant="contained" onClick={handleOpenAddModal}>Add</Button>
                 </div>
 

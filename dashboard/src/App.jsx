@@ -8,6 +8,8 @@ import Login from './pages/Login';
 import ManageProduct from './pages/ManageProduct';  
 import Register from './pages/Register'; 
 import ManageAccount from './pages/ManageAccount'; 
+import Inventory from './pages/InventoryDashboard'; 
+import Report from './pages/Report'; 
 
 function App() {
   return (
@@ -20,7 +22,8 @@ function App() {
         <Route path="/ManageProduct" element={<ManageProduct />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/ManageAccount" element={<ManageAccount />} />
-
+        <Route path="/InventoryDashboard" element={<Inventory />} />
+        <Route path="/Report" element={<Report />} />
       </Routes>
     </BrowserRouter>
   );
