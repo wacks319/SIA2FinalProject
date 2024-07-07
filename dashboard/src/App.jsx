@@ -5,7 +5,7 @@ import Menu from './pages/Products';
 import Navbar from './pages/Navbar';
 import './App.css';
 import Login from './pages/Login';
-import AdminDashboard from './pages/AdminDashboard';  
+import ManageProduct from './pages/ManageProduct';  
 import Register from './pages/Register'; 
 import ManageAccount from './pages/ManageAccount'; 
 
@@ -17,7 +17,7 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/Products" element={<Menu />} />
         <Route path="/Login" element={<Login />} />
-        <Route path="/AdminDashboard" element={<AdminDashboard />} />
+        <Route path="/ManageProduct" element={<ManageProduct />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/ManageAccount" element={<ManageAccount />} />
 

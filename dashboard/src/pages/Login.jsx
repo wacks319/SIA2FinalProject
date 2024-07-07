@@ -25,14 +25,14 @@ function Login() {
       console.log('Sending loginID:', loginID);
       console.log('Sending password:', password);
 
-      const response = await axios.post('http://192.168.10.24:3004/api/login', { loginID, password });
+      const response = await axios.post('http://192.168.1.105:3004/api/login', { loginID, password });
       const { token, userRole } = response.data;
       localStorage.setItem('token', token);
       localStorage.setItem('userRole', userRole);
 
       // Redirection based on userRole
       if (userRole === 'admin') {
-        navigate('/AdminDashboard');
+        navigate('/ManageProduct');
       } else if (userRole === 'user') {
         navigate('/Products');
       } else if (userRole === 'inventory') {

@@ -19,7 +19,7 @@ function ManageAccount() {
  
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://192.168.10.24:3004/api/users');
+      const response = await axios.get('http://192.168.1.105:3004/api/users');
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -28,7 +28,7 @@ function ManageAccount() {
  
   const deleteUser = async (userId) => {
     try {
-      await axios.delete(`http://192.168.10.24:3004/api/users/${userId}`);
+      await axios.delete(`http://192.168.1.105:3004/api/users/${userId}`);
       console.log('after deletion should show this log to indicate that the deletion was successful');
       navigate('/ManageAccount');
       alert('User deleted successfully');
@@ -52,7 +52,7 @@ function ManageAccount() {
   const handleEditUser = async () => {
     try {
       console.log('Selected user before update:', selectedUser);
-      const response = await axios.put(`http://192.168.10.24:3004/edituser/${selectedUser._id}`, selectedUser);
+      const response = await axios.put(`http://192.168.1.105:3004/edituser/${selectedUser._id}`, selectedUser);
       console.log('Update response:', response);
       handleModalClose();
       fetchUsers();
@@ -75,7 +75,7 @@ function ManageAccount() {
   return (
     <div className="manage-account-container">
       <div className="sidebar">
-        <Link to="/AdminDashboard" className="sidebar-link">Manage Products</Link>
+      <Link to="/ManageProduct" className="sidebar-link">Manage Products</Link>
         <Link to="/ManageAccount" className="sidebar-link">Manage Account</Link>
       </div>
       <div className="content">

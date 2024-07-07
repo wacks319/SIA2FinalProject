@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, Button, TextField, Modal } from '@mui/material';
-import './AdminDashboard.css';
+import './ManageProduct.css';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 
-const AdminDashboard = () => {
+const ManageProduct = () => {
     const [products, setProducts] = useState({
         productName: '',
         productPrice: '',
@@ -99,7 +99,7 @@ const AdminDashboard = () => {
             formData.append('productDescription', productDescription);
             formData.append('image', productImage);
 
-            const AddProduct = await axios.post('http://192.168.10.24:3004/addproduct', formData, {
+            const AddProduct = await axios.post('http://192.168.1.105:3004/addproduct', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -122,7 +122,7 @@ const AdminDashboard = () => {
 
     const handleDeleteProduct = async () => {
         try {
-            await axios.post('http://192.168.10.24:3004/deleteproduct', { productId: selectedProduct._id });
+            await axios.post('http://192.168.1.105:3004/deleteproduct', { productId: selectedProduct._id });
             setValues((prev) => prev.filter((product) => product._id !== selectedProduct._id));
             handleCloseEditModal();
         } catch (error) {
@@ -151,7 +151,7 @@ const AdminDashboard = () => {
                 productPrice,
                 productDescription
             };
-            const response = await axios.post('http://192.168.10.24:3004/editproduct', data, {
+            const response = await axios.post('http://192.168.1.105:3004/editproduct', data, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -169,14 +169,14 @@ const AdminDashboard = () => {
     };
 
     const fetchMenu = async () => {
-        const menu = await axios.get('http://192.168.10.24:3004/getallproducts');
+        const menu = await axios.get('http://192.168.1.105:3004/getallproducts');
         setValues(menu?.data?.data);
     };
 
     return (
         <div className="admin-dashboard-container">
             <div className="sidebar">
-            <Link to="/AdminDashboard" className="sidebar-link">Manage Products</Link>
+            <Link to="/ManageProduct" className="sidebar-link">Manage Products</Link>
             <Link to="/ManageAccount" className="sidebar-link">Manage Account</Link>
             </div>
 
@@ -237,7 +237,7 @@ const AdminDashboard = () => {
                             <div className="modal-forms">
                                 <div className="image-container">
                                     {selectedProduct.image ? (
-                                        <img src={`http://192.168.10.24:3004/uploads/${selectedProduct.image}`} alt="Product" />
+                                        <img src={`http://192.168.1.105:3004/uploads/${selectedProduct.image}`} alt="Product" />
                                     ) : (
                                         <h1>No image</h1>
                                     )}
@@ -275,7 +275,7 @@ const AdminDashboard = () => {
                     {values?.map((pro) => (
                         <div key={pro?._id} className="card-edit" onClick={() => handleOpenEditModal(pro)}>
                             <div className="image-container">
-                                <img src={`http://192.168.10.24:3004/uploads/${pro?.image}`} alt='' />
+                                <img src={`http://192.168.1.105:3004/uploads/${pro?.image}`} alt='' />
                             </div>
                             <div className='label'>
                                 <h3>{pro?.name}</h3>
@@ -292,4 +292,4 @@ const AdminDashboard = () => {
     );
 };
 
-export default AdminDashboard;
+export default ManageProduct;
