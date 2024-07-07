@@ -169,7 +169,7 @@ const ManageProduct = () => {
     };
 
     const fetchMenu = async () => {
-        const menu = await axios.get('http://192.168.1.105:3004/getallproducts');
+        const menu = await axios.get('http://192.168.10.24:3004/getallproducts');
         setValues(menu?.data?.data);
     };
 
@@ -238,7 +238,7 @@ const ManageProduct = () => {
                             <div className="modal-forms">
                                 <div className="image-container">
                                     {selectedProduct.image ? (
-                                        <img src={`http://192.168.1.105:3004/uploads/${selectedProduct.image}`} alt="Product" />
+                                        <img src={`http://192.168.10.24:3004/uploads/${selectedProduct.image}`} alt="Product" />
                                     ) : (
                                         <h1>No image</h1>
                                     )}
@@ -276,7 +276,7 @@ const ManageProduct = () => {
                     {values?.map((pro) => (
                         <div key={pro?._id} className="card-edit" onClick={() => handleOpenEditModal(pro)}>
                             <div className="image-container">
-                                <img src={`http://192.168.1.105:3004/uploads/${pro?.image}`} alt='' />
+                                <img src={`http://192.168.10.24:3004/uploads/${pro?.image}`} alt='' />
                             </div>
                             <div className='label'>
                                 <h3>{pro?.name}</h3>
