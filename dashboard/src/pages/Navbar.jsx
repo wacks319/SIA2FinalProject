@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { IconButton, Modal, Box, Typography } from '@mui/material';
-import { Person, ExitToApp, ShoppingCart } from '@mui/icons-material'; // Import ShoppingCart for cart icon
+import { Person, ExitToApp, ShoppingCart } from '@mui/icons-material';
 import './Navbar.css';
 
 function Navbar() {
@@ -38,15 +38,15 @@ function Navbar() {
         <Link to="/" className='navbar-link'>Home</Link>
         <Link to="/products" className='navbar-link'>Products</Link>
         <IconButton color="inherit" onClick={handleCartOpen}>
-          <ShoppingCart /> {/* Cart icon */}
+          <ShoppingCart />
         </IconButton>
         {isLoggedIn ? (
           <IconButton color="inherit" onClick={handleLogout}>
-            <ExitToApp /> {/* Logout icon */}
+            <ExitToApp />
           </IconButton>
         ) : (
           <IconButton color="inherit" component={Link} to="/login">
-            <Person /> {/* Login icon */}
+            <Person />
           </IconButton>
         )}
       </div>
@@ -58,7 +58,7 @@ function Navbar() {
         aria-labelledby="cart-modal-title"
         aria-describedby="cart-modal-description"
       >
-        <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', border: '2px solid #000', boxShadow: 24, p: 4 }}>
+        <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '80%', maxWidth: 400, bgcolor: 'background.paper', border: '2px solid #000', boxShadow: 24, p: 4 }}>
           <Typography id="cart-modal-title" variant="h6" component="h2">
             Cart Items
           </Typography>
