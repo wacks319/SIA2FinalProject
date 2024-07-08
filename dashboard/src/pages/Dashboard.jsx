@@ -1,8 +1,8 @@
 import React from 'react';
-import './Dashboard.css';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import './Dashboard.css';
 
 function Dashboard() {
   const settings = {
@@ -36,7 +36,7 @@ function Dashboard() {
           Welcome to the National Book Store
         </h2>
         <p>
-        LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM.
+          LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM.
         </p>
       </div>
     </div>
