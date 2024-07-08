@@ -1,8 +1,13 @@
-import React from 'react';
+
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './Dashboard.css';
+
+import React, { useEffect, useState } from 'react';
+import './Products.css';
+import axios from 'axios';
+import { Modal, Box, TextField, Button } from '@mui/material';
 
 function Dashboard() {
   const settings = {
@@ -14,6 +19,46 @@ function Dashboard() {
     autoplay: true,
     autoplaySpeed: 3000,
     pauseOnHover: true
+  };
+
+  const [values, setValues] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+
+  useEffect(() => {
+    fetchMenu();
+  }, []);
+
+  const fetchMenu = async () => {
+    try {
+      const response = await axios.get('http://192.168.10.24:3004/getallproducts');
+      setValues(response?.data?.data);
+    } catch (error) {
+      console.error('Error fetching menu:', error);
+    }
+  };
+
+  const openModal = (product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProduct(null);
+    setQuantity(1); // Reset quantity
+  };
+
+  const addToCart = () => {
+    // Implement your add to cart logic here, e.g., send a request to a backend endpoint
+    console.log(`Adding ${quantity} of ${selectedProduct?.name} to cart`);
+    closeModal(); // Close modal after adding to cart
+  };
+
+  const handleQuantityChange = (e) => {
+    const value = parseInt(e.target.value, 10);
+    setQuantity(value >= 1 ? value : 1); // Ensure quantity is at least 1
   };
 
   return (
@@ -39,8 +84,32 @@ function Dashboard() {
           LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM.
         </p>
       </div>
+
+      <div className="menu">
+      <h1>Products</h1>
+      <div className="menu-container">
+        {values?.map((pro) => (
+          <div key={pro?._id} className="card" onClick={() => openModal(pro)}>
+            <div className="image-container">
+              <img src={`http://192.168.10.24:3004/uploads/${pro?.image}`} alt="" />
+            </div>
+            <div className="label">
+              <h3>{pro?.name}</h3>
+              <h3>₱ {pro?.price}</h3>
+            </div>
+            <div className="description">
+              <p>{pro?.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+     
     </div>
+    </div>
+    
   );
 }
+
 
 export default Dashboard;

@@ -35,17 +35,16 @@ function Navbar() {
         <button type="button" className="search-button">Search</button>
       </div>
       <div className='navbar-links'>
-        <Link to="/" className='navbar-link'>Home</Link>
-        <Link to="/products" className='navbar-link'>Products</Link>
-        <IconButton color="inherit" onClick={handleCartOpen}>
+        {/* <Link to="/" className='navbar-link'>Home</Link> */}
+        {/* <IconButton color="inherit" onClick={handleCartOpen}>
           <ShoppingCart />
-        </IconButton>
+        </IconButton> */}
         {isLoggedIn ? (
-          <IconButton color="inherit" onClick={handleLogout}>
+          <IconButton color="inherit" onClick={handleLogout}>Logout
             <ExitToApp />
           </IconButton>
         ) : (
-          <IconButton color="inherit" component={Link} to="/login">
+          <IconButton color="inherit" component={Link} to="/login">Login
             <Person />
           </IconButton>
         )}
