@@ -1,0 +1,41 @@
+.sales-list-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sales-list-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .sales-list-header,
+  .sales-list-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .sales-list-header {
+    background-color: #e9e9e9;
+    font-weight: bold;
+  }
+  
+  .sales-list-column {
+    width: 25%;
+    text-align: center;
+  }
+  
+  .sales-list-item {
+    background-color: #fff;
+    transition: background-color 0.3s;
+  }
+  
+  .sales-list-item:hover {
+    background-color: #f1f1f1;
+  }
+  

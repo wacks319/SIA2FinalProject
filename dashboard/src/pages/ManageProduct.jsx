@@ -99,7 +99,7 @@ const ManageProduct = () => {
             formData.append('productDescription', productDescription);
             formData.append('image', productImage);
 
-            const AddProduct = await axios.post('http://192.168.1.105:3004/addproduct', formData, {
+            const AddProduct = await axios.post('http://192.168.10.24:3004/addproduct', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -122,7 +122,7 @@ const ManageProduct = () => {
 
     const handleDeleteProduct = async () => {
         try {
-            await axios.post('http://192.168.1.105:3004/deleteproduct', { productId: selectedProduct._id });
+            await axios.post('http://192.168.10.24:3004/deleteproduct', { productId: selectedProduct._id });
             setValues((prev) => prev.filter((product) => product._id !== selectedProduct._id));
             handleCloseEditModal();
         } catch (error) {
@@ -151,7 +151,7 @@ const ManageProduct = () => {
                 productPrice,
                 productDescription
             };
-            const response = await axios.post('http://192.168.1.105:3004/editproduct', data, {
+            const response = await axios.post('http://192.168.10.24:3004/editproduct', data, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -178,14 +178,16 @@ const ManageProduct = () => {
             <div className="sidebar">
             <Link to="/ManageProduct" className="sidebar-link">Manage Products</Link>
             <Link to="/ManageAccount" className="sidebar-link">Manage Account</Link>
+            <Link to="/SaleList" className="sidebar-link">Sales List</Link>
             <Link to="/Report" className="sidebar-link">Reports</Link>
             </div>
 
             <div className="main-content">
-                <div className="header">
-                    <h2>Admin Dashboard</h2>
-                    <Button variant="contained" onClick={handleOpenAddModal}>Add</Button>
-                </div>
+    <div className="header">
+        <h2>Admin Dashboard</h2>
+        <Button className="add-button" variant="contained" onClick={handleOpenAddModal}>Add</Button>
+</div>
+
 
                 <Modal open={modalAddOpen} onClose={handleCloseAddModal}>
                     <div className="view-modal">

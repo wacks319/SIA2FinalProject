@@ -10,6 +10,7 @@ import Register from './pages/Register';
 import ManageAccount from './pages/ManageAccount'; 
 import Inventory from './pages/InventoryDashboard'; 
 import Report from './pages/Report'; 
+import SaleList from './pages/SaleList'; 
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/ManageAccount" element={<ManageAccount />} />
         <Route path="/InventoryDashboard" element={<Inventory />} />
         <Route path="/Report" element={<Report />} />
+        <Route path="/SaleList" element={<SaleList />} />
       </Routes>
     </BrowserRouter>
   );

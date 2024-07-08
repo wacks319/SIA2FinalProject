@@ -52,7 +52,7 @@ function ManageAccount() {
   const handleEditUser = async () => {
     try {
       console.log('Selected user before update:', selectedUser);
-      const response = await axios.put(`http://192.168.1.105:3004/edituser/${selectedUser._id}`, selectedUser);
+      const response = await axios.put(`http://192.168.10.24:3004/edituser/${selectedUser._id}`, selectedUser);
       console.log('Update response:', response);
       handleModalClose();
       fetchUsers();
@@ -77,6 +77,7 @@ function ManageAccount() {
       <div className="sidebar">
       <Link to="/ManageProduct" className="sidebar-link">Manage Products</Link>
         <Link to="/ManageAccount" className="sidebar-link">Manage Account</Link>
+        <Link to="/SaleList" className="sidebar-link">Sales List</Link>
         <Link to="/Report" className="sidebar-link">Reports</Link>
       </div>
       <div className="content">
