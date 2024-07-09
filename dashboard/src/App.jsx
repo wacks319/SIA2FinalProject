@@ -12,6 +12,7 @@ import Inventory from './pages/InventoryDashboard';
 import Report from './pages/Report'; 
 import SaleList from './pages/SaleList'; 
 
+
 function App() {
   return (
     <BrowserRouter>

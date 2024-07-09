@@ -68,6 +68,9 @@ function Login() {
         <div className="main-login-form">
           <div className="login-form">
             <h1>Login</h1>
+            <h3>admin: kerty pass: 1-0 </h3>
+            <h3>inventory: brii  pass: 1-0 </h3 >
+            <h3>user: cams pass: 1-0 </h3>
             <div className="login-forms">
               <TextField
                 value={loginID}

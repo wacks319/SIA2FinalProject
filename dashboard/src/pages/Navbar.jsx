@@ -40,11 +40,11 @@ function Navbar() {
           <ShoppingCart />
         </IconButton> */}
         {isLoggedIn ? (
-          <IconButton color="inherit" onClick={handleLogout}>Logout
+          <IconButton color="inherit" onClick={handleLogout}>
             <ExitToApp />
           </IconButton>
         ) : (
-          <IconButton color="inherit" component={Link} to="/login">Login
+          <IconButton color="inherit" component={Link} to="/login">
             <Person />
           </IconButton>
         )}
