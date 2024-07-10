@@ -65,14 +65,38 @@ const Products = () => {
         }));
     };
  
+    // const handleBillingSubmit = async () => {
+    //     try {
+    //         const token = "$2b$10$Roa1/HkD1qYNYfexMl.kAuwiwWbLy3oXQ/pEsGnfLHUeH4I4w3d.i";
+    //         const debit = values.debitAccount;
+    //         const credit = values.creditAccount;
+    //         const amount = getTotalPrice();
+ 
+    //         const response = await axios.post('http://192.168.10.14:3001/api/unionbank/transfertransaction', {
+    //             debitAccount: debit,
+    //             creditAccount: credit,
+    //             amount: amount
+    //         }, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`
+    //             }
+    //         });
+ 
+    //         console.log(response?.data);
+    //     } catch (error) {
+    //         console.error('Error submitting payment:', error);
+    //     }
+    // };
+
     const handleBillingSubmit = async () => {
         try {
             const token = "$2b$10$Roa1/HkD1qYNYfexMl.kAuwiwWbLy3oXQ/pEsGnfLHUeH4I4w3d.i";
             const debit = values.debitAccount;
             const credit = values.creditAccount;
             const amount = getTotalPrice();
- 
-            const response = await axios.post('http://192.168.10.14:3001/api/unionbank/transfertransaction', {
+   
+            // Step 1: Transfer transaction
+            const transferResponse = await axios.post('http://192.168.10.14:3001/api/unionbank/transfertransaction', {
                 debitAccount: debit,
                 creditAccount: credit,
                 amount: amount
@@ -81,12 +105,51 @@ const Products = () => {
                     Authorization: `Bearer ${token}`
                 }
             });
- 
-            console.log(response?.data);
+   
+            if (!transferResponse.data) {
+                throw new Error('Transfer transaction failed');
+            }
+   
+            // Step 2: Record transaction details and update reports
+            for (const product of cart) {
+                // Record transaction detail
+                const transactionResponse = await axios.post('http://192.168.10.24:3004/api/salesdetails', {
+                    product: product.name,
+                    quantity: 1, // Assuming 1 for simplicity, adjust as needed
+                    price: product.price,
+                    date: new Date()
+                });
+   
+                if (!transactionResponse.data) {
+                    throw new Error('Failed to record transaction details');
+                }
+   
+                // Update Reports model
+                const reportsResponse = await axios.get('http://192.168.10.24:3004/api/reportdetails');
+                const reports = reportsResponse.data.data;
+   
+                if (!Array.isArray(reports) || reports.length === 0) {
+                    // Create new report if none exists
+                    await axios.post('http://192.168.10.24:3004/api/reportdetails', {
+                        totalSales: product.price,
+                        totalOrders: 1,
+                        bestSeller: product.name
+                    });
+                } else {
+                    // Update existing report
+                    const update = reports[0];
+                    update.totalSales += product.price;
+                    update.totalOrders++;
+                    await axios.put(`http://192.168.10.24:3004/api/reportdetailss/${update._id}`, update);
+                }
+            }
+   
+            console.log('Payment and transaction recording successful');
         } catch (error) {
             console.error('Error submitting payment:', error);
         }
     };
+ 
  
     return (
         <div className="app-container">

@@ -16,6 +16,9 @@ const userRoutes = require('./routes/userRoutes');
 const userModel = require('./models/userModel.js');
  
 // const userRoutes = require('./controllers/userControllers.js')
+
+const salesDetailRoutes = require('./routes/salesDetailRoutes');
+const reportRoutes = require('./routes/reportRoutes.js');
  
  
  
@@ -39,6 +42,9 @@ const upload = multer({ storage: storage });
 app.use(express.json());
 app.use(cors());
  
+app.use('/api/salesdetails', salesDetailRoutes);
+app.use('/api/reportdetails', reportRoutes);
+
 app.use('/api', userRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
  
@@ -167,3 +173,4 @@ app.put('/edituser/:userId', async (req, res) => {
       res.status(500).json({ success: false, message: 'Internal server error' });
     }
   });
+
