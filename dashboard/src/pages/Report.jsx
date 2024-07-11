@@ -62,11 +62,9 @@ function Report() {
   return (
     <div className="view-logs-container">
       <div className="sidebar">
-        <Link to="/AdminDashboard" className="sidebar-link">Manage Products</Link>
+        <Link to="/ManageProduct" className="sidebar-link">Manage Products</Link>
         <Link to="/ManageAccount" className="sidebar-link">Manage Account</Link>
-        <Link to="/ViewLogs" className="sidebar-link">Purchase Orders</Link>
-        <Link to="/Reports" className="sidebar-link active">Reports</Link>
-        <Link to="/Stocks" className="sidebar-link">Stocks</Link>
+        <Link to="/Report" className="sidebar-link active">Reports</Link>
       </div>
       <div className="content">
         <h1>Reports</h1>
