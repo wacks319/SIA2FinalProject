@@ -1,8 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
 .login-modal {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .main-login-form {
@@ -11,9 +20,10 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background-color: rgb(255, 255, 255);
+    background-color: #ffffff;
     border-radius: 10px;
-    box-shadow: 0px 10px 15px 7px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 400px;
 }
 
 .login-form {
@@ -21,7 +31,30 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
+    width: 100%;
+}
+
+.login-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.example-credentials {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: left;
+}
+
+.example-credentials p {
+    margin: 0;
+    padding: 3px 0;
+    font-size: 14px;
 }
 
 .login-forms {
@@ -29,9 +62,33 @@
     flex-direction: column;
     gap: 10px;
     padding: 10px;
-    /* border: red solid 1px; */
+    width: 100%;
 }
 
 .login-forms .login-button {
-    margin-top: 20px;
+    margin-top: 10px;
+    width: 100%;
+    height: 50px; /* Adjusted height to match textboxes */
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: 700;
+    text-align: center;
+}
+
+p {
+    margin: 0;
+    font-size: 16px;
+    color: #666;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }

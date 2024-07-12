@@ -1,15 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
+import InputAdornment from '@mui/material/InputAdornment';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import Lock from '@mui/icons-material/Lock';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import axios from 'axios';
 import './Login.css';
+
+import loginImage from '../../public/nbs.jpg'; // Adjust the path as necessary
 
 function Login() {
   const [ModalStudOpen, setModalStudOpen] = useState(true);
   const [loginID, setLoginID] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loginIDErr, setLoginIDError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
@@ -67,10 +75,13 @@ function Login() {
       <div className="login-modal">
         <div className="main-login-form">
           <div className="login-form">
+            <img src={loginImage} alt="Login Image" className="login-image" /> {/* Use the image here */}
             <h1>Login</h1>
-            <h3>admin: kerty pass: kerty1-0 </h3>
-            <h3>inventory: brii  pass: 1-0 </h3 >
-            <h3>user: cams pass: 1-0 </h3>
+            <div className="example-credentials">
+              <p><strong>Admin</strong>: kerty password: kerty1234567890</p>
+              <p><strong>Inventory</strong>: brii password: kerty1234567890</p>
+              <p><strong>User</strong>: cams / 1-0</p>
+            </div>
             <div className="login-forms">
               <TextField
                 value={loginID}
@@ -84,6 +95,14 @@ function Login() {
                 required
                 error={!!loginIDErr}
                 helperText={loginIDErr ? loginIDErr : ''}
+                fullWidth
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AccountCircle />
+                    </InputAdornment>
+                  ),
+                }}
               />
               <TextField
                 value={password}
@@ -94,21 +113,52 @@ function Login() {
                 id="outlined-basic-2"
                 label="Password"
                 variant="outlined"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 required
                 error={!!passwordError}
                 helperText={passwordError ? passwordError : ''}
+                fullWidth
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Lock />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={showPassword}
+                    onChange={(e) => setShowPassword(e.target.checked)}
+                  />
+                }
+                label="Show Password"
               />
 
-              <Button variant="contained" onClick={handleSubmit}>
+              <Button
+                variant="contained"
+                onClick={handleSubmit}
+                className="login-button"
+                style={{ backgroundColor: 'black', color: 'white' }}
+              >
                 Login
               </Button>
-              <Button variant="contained" onClick={handleCloseStudModal}>
+              <Button
+                variant="contained"
+                onClick={handleCloseStudModal}
+                className="login-button"
+                style={{ backgroundColor: 'black', color: 'white' }}
+              >
                 Cancel
               </Button>
 
-              {/* Button to navigate to Register page */}
-              <Button variant="contained" onClick={handleRegisterClick}>
+              <Button
+                variant="outlined"
+                onClick={handleRegisterClick}
+                className="login-button"
+                style={{ borderColor: 'black', color: 'black' }}
+              >
                 Register
               </Button>
             </div>
