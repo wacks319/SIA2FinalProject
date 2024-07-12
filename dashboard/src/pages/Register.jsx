@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Register.css';
-import { TextField, Button, Typography, Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { TextField, Button, Typography, Box } from '@mui/material';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +10,6 @@ const Register = () => {
     password: ''
   });
 
-  const [message, setMessage] = useState('');
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -24,9 +23,9 @@ const Register = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://192.168.10.24:3004/api/users', formData);
-      setMessage(response.data.message);
-      setFormData({ username: '', email: '', password: ''});
+      setFormData({ username: '', email: '', password: '' });
       setErrors({});
+      window.alert('User registered successfully!'); // Show alert on successful registration
     } catch (error) {
       if (error.response) {
         setErrors(error.response.data.error || {});
@@ -37,9 +36,9 @@ const Register = () => {
   };
 
   return (
-    <Box className="container">
+    <div className="background-container">
       <Box className="form-container">
-        <Typography variant="h4" gutterBottom textAlign="center" color="#0c1c8d">
+        <Typography variant="h4" gutterBottom textAlign="center" sx={{ color: 'black' }}>
           Register
         </Typography>
         <form onSubmit={handleSubmit}>
@@ -88,14 +87,25 @@ const Register = () => {
             />
           </Box>
           <Box className="button-container">
-            <Button type="submit" variant="contained" color="primary" size="large">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              size="large"
+              sx={{
+                backgroundColor: '#000',
+                color: 'white',
+                '&:hover': {
+                  backgroundColor: '#808080'
+                }
+              }}
+            >
               Register
             </Button>
           </Box>
         </form>
-        {message && <Box className="message-container">{message}</Box>}
       </Box>
-    </Box>
+    </div>
   );
 };
 

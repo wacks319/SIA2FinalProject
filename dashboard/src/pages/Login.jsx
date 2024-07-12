@@ -139,7 +139,7 @@ function Login() {
               <Button
                 variant="contained"
                 onClick={handleSubmit}
-                className="login-button"
+                className="login-button sign-in"
                 style={{ backgroundColor: 'black', color: 'white' }}
               >
                 Login
@@ -147,7 +147,7 @@ function Login() {
               <Button
                 variant="contained"
                 onClick={handleCloseStudModal}
-                className="login-button"
+                className="login-button cancel"
                 style={{ backgroundColor: 'black', color: 'white' }}
               >
                 Cancel
@@ -156,8 +156,8 @@ function Login() {
               <Button
                 variant="outlined"
                 onClick={handleRegisterClick}
-                className="login-button"
-                style={{ borderColor: 'black', color: 'black' }}
+                className="login-button register"
+                style={{ borderColor: 'black', color: 'black', height: '56px' }}
               >
                 Register
               </Button>
