@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { IconButton, Modal, Box, Typography } from '@mui/material';
-import { Person, ExitToApp, ShoppingCart } from '@mui/icons-material';
+import { Person, ShoppingCart } from '@mui/icons-material';
 import './Navbar.css';
 
 function Navbar() {
@@ -35,19 +35,11 @@ function Navbar() {
         <button type="button" className="search-button">Search</button>
       </div>
       <div className='navbar-links'>
-        {/* <Link to="/" className='navbar-link'>Home</Link> */}
-        {/* <IconButton color="inherit" onClick={handleCartOpen}>
-          <ShoppingCart />
-        </IconButton> */}
-        {isLoggedIn ? (
-          <IconButton color="inherit" onClick={handleLogout}>
-            <ExitToApp />
-          </IconButton>
-        ) : (
-          <IconButton color="inherit" component={Link} to="/login">
+        <Link to="/" className='navbar-link'>Home</Link>
+        <Link to="/Products" className='navbar-link'>Shop</Link>
+        <IconButton color="inherit" component={Link} to="/login">
             <Person />
           </IconButton>
-        )}
       </div>
 
       {/* Modal for cart */}

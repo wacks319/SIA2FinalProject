@@ -1,13 +1,10 @@
-
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './Dashboard.css';
-
-import React, { useEffect, useState } from 'react';
-import './Products.css';
-import axios from 'axios';
-import { Modal, Box, TextField, Button } from '@mui/material';
+import Navbar from './Navbar'; // Assuming Navbar is correctly implemented
 
 function Dashboard() {
   const settings = {
@@ -25,6 +22,7 @@ function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchMenu();
@@ -33,9 +31,10 @@ function Dashboard() {
   const fetchMenu = async () => {
     try {
       const response = await axios.get('http://192.168.10.24:3004/getallproducts');
-      setValues(response?.data?.data);
+      setValues(response?.data?.data || []); // Ensure to handle empty response or errors
     } catch (error) {
       console.error('Error fetching menu:', error);
+      setError('Error fetching menu. Please try again later.');
     }
   };
 
@@ -63,6 +62,7 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
+      <Navbar />
       <div className='image-section'>
         <Slider {...settings}>
           <div>
@@ -86,30 +86,30 @@ function Dashboard() {
       </div>
 
       <div className="menu">
-      <h1>Products</h1>
-      <div className="menu-container">
-        {values?.map((pro) => (
-          <div key={pro?._id} className="card" onClick={() => openModal(pro)}>
-            <div className="image-container">
-              <img src={`http://192.168.10.24:3004/uploads/${pro?.image}`} alt="" />
-            </div>
-            <div className="label">
-              <h3>{pro?.name}</h3>
-              <h3>₱ {pro?.price}</h3>
-            </div>
-            <div className="description">
-              <p>{pro?.description}</p>
-            </div>
+        <h1>Products</h1>
+        {error ? (
+          <p>{error}</p>
+        ) : (
+          <div className="menu-container">
+            {values.map((pro) => (
+              <div key={pro?._id} className="card" onClick={() => openModal(pro)}>
+                <div className="image-container">
+                  <img src={`http://192.168.10.24:3004/uploads/${pro?.image}`} alt="" />
+                </div>
+                <div className="label">
+                  <h3>{pro?.name}</h3>
+                  <h3>₱ {pro?.price}</h3>
+                </div>
+                <div className="description">
+                  <p>{pro?.description}</p>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        )}
       </div>
-
-     
     </div>
-    </div>
-    
   );
 }
-
 
 export default Dashboard;

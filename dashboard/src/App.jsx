@@ -16,7 +16,7 @@ import SaleList from './pages/SaleList';
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
+      
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/Products" element={<Menu />} />
