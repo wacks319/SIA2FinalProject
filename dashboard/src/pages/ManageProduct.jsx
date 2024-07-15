@@ -209,6 +209,7 @@ const ManageProduct = () => {
         <div className="admin-dashboard-container">
             <div className="sidebar">
                 <Link to="/ManageProduct" className="sidebar-link">Manage Products</Link>
+                <Link to="/ManageStocks" className="sidebar-link">Manage Stocks</Link>
                 <Link to="/ManageAccount" className="sidebar-link">Manage Account</Link>
                 <Link to="/Report" className="sidebar-link">Reports</Link>
   
