@@ -13,13 +13,13 @@ const HOST = '192.168.10.24'
 const adminModel = require('./models/adminData.js');
 const Products = require('./models/productModel.js');
 const userRoutes = require('./routes/userRoutes');
+ 
 const userModel = require('./models/userModel.js');
  
-// const userRoutes = require('./controllers/userControllers.js')
-
 const salesDetailRoutes = require('./routes/salesDetailRoutes');
 const reportRoutes = require('./routes/reportRoutes.js');
  
+// const userRoutes = require('./controllers/userControllers.js')
  
  
 const storage = multer.diskStorage({
@@ -42,10 +42,11 @@ const upload = multer({ storage: storage });
 app.use(express.json());
 app.use(cors());
  
+app.use('/api', userRoutes);
+ 
 app.use('/api/salesdetails', salesDetailRoutes);
 app.use('/api/reportdetails', reportRoutes);
-
-app.use('/api', userRoutes);
+ 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
  
 const ConnectToDatabase = async () => {
@@ -66,7 +67,7 @@ ConnectToDatabase()
  
  
  
-
+ 
  
 app.post('/adduser', upload.single('image'), async (req, res) => {
     try {
@@ -81,7 +82,7 @@ app.post('/adduser', upload.single('image'), async (req, res) => {
  
 app.post('/addproduct', upload.single('image'), async (req, res) => {
     try {
-        const { productName, productDescription,productPrice } = req.body;
+        const { productName, productDescription,productPrice, category } = req.body;
         const productImage = req.file.filename;
         const productId = Math.floor(Math.random() * 100000);
         console.log(productImage)
@@ -91,6 +92,7 @@ app.post('/addproduct', upload.single('image'), async (req, res) => {
             name: productName,
             description: productDescription,
             price:productPrice,
+            category: category,
             image: productImage
         });
  
@@ -129,13 +131,14 @@ app.post('/deleteproduct', async (req, res) => {
  
 app.post('/editproduct', async (req, res) => {
     try {
-        const { productId, productName, productDescription,productPrice } = req.body;
+        const { productId, productName, productDescription,productPrice, category } = req.body;
  
         console.log('Received data for updating product:', productId, productName, productDescription,productPrice);
  
         const updatedProduct = await Products.findByIdAndUpdate(productId, {
             name: productName,
             description: productDescription,
+            category: category,
             price:productPrice
         }, { new: true });
  
@@ -173,4 +176,4 @@ app.put('/edituser/:userId', async (req, res) => {
       res.status(500).json({ success: false, message: 'Internal server error' });
     }
   });
-
+ 

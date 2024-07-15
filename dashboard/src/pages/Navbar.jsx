@@ -27,13 +27,11 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <div className='search-bar'>
+    
         <div className='logo-img'>
           <img src="logo.jpg" alt="logo" />
         </div>
-        <input type="text" placeholder="Search..." className="search-input" />
-        <button type="button" className="search-button">Search</button>
-      </div>
+       
       <div className='navbar-links'>
         <Link to="/" className='navbar-link'>Home</Link>
         <Link to="/Products" className='navbar-link'>Shop</Link>

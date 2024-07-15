@@ -13,7 +13,10 @@
     border-bottom: 1px solid #ddd;
 }
 
-.shop-container, .cart-container, .billing-container {
+/* Ensure these containers are styled similarly */
+.shop-container,
+.cart-container,
+.billing-container {
     margin-top: 20px;
 }
 
@@ -59,8 +62,14 @@
     margin: 10px 0;
 }
 
+/* Ensure button text color is white */
 .product-card button {
     margin-top: 10px;
+    color: white;
+}
+
+.product-card button:hover {
+    background-color: #808080; /* Gray background on hover */
 }
 
 .cart-container {
@@ -87,8 +96,14 @@
     color: #333;
 }
 
+/* Ensure button text color is white */
 .cart-item button {
     margin-left: 10px;
+    color: white;
+}
+
+.cart-item button:hover {
+    background-color: #808080; /* Gray background on hover */
 }
 
 .billing-container {
@@ -107,7 +122,8 @@
     gap: 10px;
 }
 
-.billing-form input, .billing-form select {
+.billing-form input,
+.billing-form select {
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ddd;
@@ -116,4 +132,9 @@
 
 .billing-form button {
     margin-top: 20px;
+    color: black; /* Keep billing form button text color black */
+}
+
+.billing-form button:hover {
+    background-color: #808080; /* Gray background on hover */
 }

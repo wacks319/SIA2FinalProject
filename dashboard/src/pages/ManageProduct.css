@@ -232,4 +232,31 @@ h2 {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
  
- 
+ /* Update button styles */
+.view-modal .MuiButtonBase-root,
+.header Button,
+.btn-add Button,
+.card-edit:hover {
+    background-color: black !important;
+    color: white !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Add hover effect */
+.view-modal .MuiButtonBase-root:hover,
+.header Button:hover,
+.btn-add Button:hover,
+.card-edit:hover {
+    background-color: gray !important;
+}
+
+.category-button {
+  background-color: black !important;
+  color: white !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.category-button:hover {
+  background-color: gray !important;
+}
+

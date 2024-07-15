@@ -62,7 +62,7 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
-      <Navbar />
+      
       <div className='image-section'>
         <Slider {...settings}>
           <div>
