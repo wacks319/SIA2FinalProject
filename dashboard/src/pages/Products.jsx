@@ -69,7 +69,7 @@ const Products = () => {
 
     const handleBillingSubmit = async () => {
         try {
-            const token = "$2b$10$Roa1/HkD1qYNYfexMl.kAuwiwWbLy3oXQ/pEsGnfLHUeH4I4w3d.i";
+            const token = "$2b$10$81rZwhHngrfNMcTzlQO82OUELSPLpjD3ZWfc98HjWQ76uFDrOtIku";
             const debit = values.debitAccount;
             const credit = values.creditAccount;
             const amount = getTotalPrice();
