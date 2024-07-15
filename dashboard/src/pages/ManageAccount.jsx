@@ -75,9 +75,7 @@ function ManageAccount() {
   return (
     <div className="manage-account-container">
       <div className="sidebar">
-      <Link to="/ManageProduct" className="sidebar-link">Manage Products</Link>
-        <Link to="/ManageAccount" className="sidebar-link">Manage Account</Link>
-        <Link to="/Report" className="sidebar-link">Reports</Link>
+      <Link to="/ManageProduct" className="sidebar-link">Back</Link>
       </div>
       <div className="content">
         <h1>Manage Account</h1>

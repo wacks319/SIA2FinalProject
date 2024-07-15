@@ -11,6 +11,7 @@ import ManageAccount from './pages/ManageAccount';
 import Inventory from './pages/InventoryDashboard'; 
 import Report from './pages/Report'; 
 import SaleList from './pages/SaleList'; 
+import InventoryReport from './pages/InventoryReport'; 
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path="/InventoryDashboard" element={<Inventory />} />
         <Route path="/Report" element={<Report />} />
         <Route path="/SaleList" element={<SaleList />} />
+        <Route path="/InventoryReport" element={<InventoryReport />} />
       </Routes>
     </BrowserRouter>
   );

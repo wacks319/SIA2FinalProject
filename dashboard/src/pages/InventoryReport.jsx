@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import './Report.css';
+import './InventoryReport.css';
  
-function Report() {
+function InventoryReport() {
   const [totalSales, setTotalSales] = useState(0);
   const [totalOrders, setTotalOrders] = useState(0);
   const [bestSeller, setBestSeller] = useState('');
@@ -62,7 +62,7 @@ function Report() {
   return (
     <div className="view-logs-container">
       <div className="sidebar">
-        <Link to="/ManageProduct" className="sidebar-link">Back</Link>
+        <Link to="/InventoryDashboard" className="sidebar-link">Back</Link>
       </div>
       <div className="content">
         <h1>Reports</h1>
@@ -109,5 +109,5 @@ function Report() {
   );
 }
  
-export default Report;
+export default InventoryReport;
  
