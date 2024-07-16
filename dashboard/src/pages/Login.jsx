@@ -78,9 +78,9 @@ function Login() {
             <img src={loginImage} alt="Login Image" className="login-image" /> {/* Use the image here */}
             <h1>Login</h1>
             <div className="example-credentials">
-              <p><strong>Admin</strong> password: admin</p>
-              <p><strong>Staff</strong> password: staff</p>
-              <p><strong>User</strong> password: user</p>
+              <p><strong>admin</strong> password: admin</p>
+              <p><strong>staff</strong> password: staff</p>
+              <p><strong>user</strong> password: user</p>
             </div>
             <div className="login-forms">
               <TextField

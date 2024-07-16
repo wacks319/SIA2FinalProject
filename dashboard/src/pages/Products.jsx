@@ -85,6 +85,8 @@ const Products = () => {
                 }
             });
 
+            console.log(transferResponse.data.message)
+            alert(transferResponse.data.message)
             if (!transferResponse.data) {
                 throw new Error('Transfer transaction failed');
             }
@@ -122,8 +124,6 @@ const Products = () => {
                     await axios.put(`http://192.168.10.24:3004/api/reportdetailss/${update._id}`, update);
                 }
             }
-
-            console.log('Payment and transaction recording successful');
         } catch (error) {
             console.error('Error submitting payment:', error);
         }
