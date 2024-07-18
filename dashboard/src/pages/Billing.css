@@ -1,0 +1,12 @@
+/* Billing.css */
+
+/* Styling for the submit payment button */
+.billing-container .MuiButton-containedPrimary {
+    background-color: black; /* Set button background color to black */
+    color: white; /* Set text color to white */
+}
+
+/* Hover effect for the submit payment button */
+.billing-container .MuiButton-containedPrimary:hover {
+    background-color: #444; /* Dark gray background color on hover */
+}

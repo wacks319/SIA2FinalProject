@@ -5,22 +5,24 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import axios from 'axios';
 import './Products.css';
 import Billing from '../pages/Billing';
-
+ 
 const Products = () => {
     const [view, setView] = useState('shop');
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
     const [transactionMode, setTransactionMode] = useState('creditCard');
+    //addded
+    const [selectedCategory, setSelectedCategory] = useState('All');
     const [values, setValues] = useState({
         debitAccount: '',
         creditAccount: '',
         amount: ''
     });
-
+ 
     useEffect(() => {
         fetchProducts();
     }, []);
-
+ 
     const fetchProducts = async () => {
         try {
             const routingNumber = "000000010";
@@ -34,27 +36,27 @@ const Products = () => {
             console.error('Error fetching products:', error);
         }
     };
-
+ 
     const addToCart = (product) => {
         setCart((prevCart) => [...prevCart, product]);
     };
-
+ 
     const handleRemoveFromCart = (index) => {
         setCart((prevCart) => prevCart.filter((_, i) => i !== index));
     };
-
+ 
     const getTotalPrice = () => {
         return cart.reduce((total, product) => total + parseInt(product.price), 0);
     };
-
+ 
     const handleCheckout = () => {
         setView('billing');
     };
-
+ 
     const handleTransactionModeChange = (event) => {
         setTransactionMode(event.target.value);
     };
-
+ 
     const handleBillingChange = (e) => {
         const { name, value } = e.target;
         setValues((prev) => ({
@@ -66,14 +68,14 @@ const Products = () => {
             amount: getTotalPrice()
         }));
     };
-
+ 
     const handleBillingSubmit = async () => {
         try {
             const token = "$2b$10$81rZwhHngrfNMcTzlQO82OUELSPLpjD3ZWfc98HjWQ76uFDrOtIku";
             const debit = values.debitAccount;
             const credit = values.creditAccount;
             const amount = getTotalPrice();
-
+ 
             // Step 1: Transfer transaction
             const transferResponse = await axios.post('http://192.168.10.14:3001/api/unionbank/transfertransaction', {
                 debitAccount: debit,
@@ -84,13 +86,13 @@ const Products = () => {
                     Authorization: `Bearer ${token}`
                 }
             });
-
+ 
             console.log(transferResponse.data.message)
             alert(transferResponse.data.message)
             if (!transferResponse.data) {
                 throw new Error('Transfer transaction failed');
             }
-
+ 
             // Step 2: Record transaction details and update reports
             for (const product of cart) {
                 // Record transaction detail
@@ -100,15 +102,15 @@ const Products = () => {
                     price: product.price,
                     date: new Date()
                 });
-
+ 
                 if (!transactionResponse.data) {
                     throw new Error('Failed to record transaction details');
                 }
-
+ 
                 // Update Reports model
                 const reportsResponse = await axios.get('http://192.168.10.24:3004/api/reportdetails');
                 const reports = reportsResponse.data.data;
-
+ 
                 if (!Array.isArray(reports) || reports.length === 0) {
                     // Create new report if none exists
                     await axios.post('http://192.168.10.24:3004/api/reportdetails', {
@@ -121,14 +123,21 @@ const Products = () => {
                     const update = reports[0];
                     update.totalSales += product.price;
                     update.totalOrders++;
-                    await axios.put(`http://192.168.10.24:3004/api/reportdetailss/${update._id}`, update);
+                    await axios.put(`http://192.168.10.24:3004/api/reportdetails/${update._id}`, update);
                 }
             }
         } catch (error) {
             console.error('Error submitting payment:', error);
         }
     };
-
+ 
+    const categories = ['All', 'Books', 'Arts & Crafts', 'Coloring Supplies', 'Filing Supplies', 'Paper Supplies', 'Writing Supplies', 'School & Office Essentials'];
+ 
+    const handleCategoryChange = (category) => {
+        setSelectedCategory(category);
+    };
+ 
+    const filteredValues= selectedCategory === 'All' ? products : products.filter(product => product.category === selectedCategory);
 
     return (
         <div className="app-container">
@@ -137,11 +146,24 @@ const Products = () => {
                 <Button onClick={() => setView('cart')} startIcon={<ShoppingCartIcon />} sx={{ color: 'black' }}>Cart ({cart.length})</Button>
             </nav>
 
+            <div className="category-list">
+                {categories.map(category => (
+                    <Button
+                        key={category}
+                        variant={selectedCategory === category ? 'contained' : 'outlined'}
+                        onClick={() => handleCategoryChange(category)}
+                        sx={{ marginRight: '10px', marginBottom: '10px' }}
+                    >
+                        {category}
+                    </Button>
+                ))}
+            </div>
+
             {view === 'shop' && (
                 <div className="shop-container">
                     <h2>Shop</h2>
                     <div className="products-list">
-                        {products.map((product) => (
+                        {filteredValues.map((product) => (
                             <div key={product._id} className="product-card">
                                 <img src={`http://192.168.10.24:3004/uploads/${product.image}`} alt={product.name} />
                                 <h3>{product.name}</h3>

@@ -209,8 +209,9 @@ const InventoryDashboard = () => {
         <div className="admin-dashboard-container">
             <div className="sidebar">
                 <Link to="/InventoryDashboard" className="sidebar-link">Manage Products</Link>
-                <Link to="/" className="sidebar-link">Manage Stocks</Link>
+                <Link to="/Products" className="sidebar-link">Shop</Link>
                 <Link to="/InventoryReport" className="sidebar-link">Reports</Link>
+                <Link to="/" className="sidebar-link">Logout</Link>
                
             </div>
  

@@ -17,7 +17,7 @@ import InventoryReport from './pages/InventoryReport';
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
+      
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/Products" element={<Menu />} />

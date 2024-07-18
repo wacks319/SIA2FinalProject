@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-    Card,
-    CardContent,
     Button,
     TextField,
     Modal,
@@ -209,9 +207,10 @@ const ManageProduct = () => {
         <div className="admin-dashboard-container">
             <div className="sidebar">
                 <Link to="/ManageProduct" className="sidebar-link">Manage Products</Link>
-                <Link to="/ManageStocks" className="sidebar-link">Manage Stocks</Link>
                 <Link to="/ManageAccount" className="sidebar-link">Manage Account</Link>
+                <Link to="/Products" className="sidebar-link">Shop</Link>
                 <Link to="/Report" className="sidebar-link">Reports</Link>
+                <Link to="/" className="sidebar-link">Logout</Link>
   
             </div>
  

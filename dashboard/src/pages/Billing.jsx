@@ -26,15 +26,7 @@ const Billing = ({ cart, transactionMode, billingDetails, handleTransactionModeC
                         value={billingDetails?.debitAccount}
                         onChange={handleBillingChange}
                     />
-                    <TextField
-                        name="creditAccount"
-                        label="Bank Routing Number"
-                        value={billingDetails?.creditAccount}
-                        onChange={handleBillingChange}
-                        InputProps={{
-                            readOnly: true,
-                        }}
-                    />
+                
  
                 </div>
             )}
@@ -44,12 +36,6 @@ const Billing = ({ cart, transactionMode, billingDetails, handleTransactionModeC
                         name="debitAccount"
                         label="Bank Account Number"
                         value={billingDetails?.debitAccount}
-                        onChange={handleBillingChange}
-                    />
-                    <TextField
-                        name="creditAccount"
-                        label="Bank Routing Number"
-                        value="000000007"
                         onChange={handleBillingChange}
                     />
                 </div>
