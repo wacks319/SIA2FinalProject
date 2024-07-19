@@ -82,7 +82,7 @@ app.post('/adduser', upload.single('image'), async (req, res) => {
  
 app.post('/addproduct', upload.single('image'), async (req, res) => {
     try {
-        const { productName, productDescription,productPrice, category } = req.body;
+        const { productName, productDescription,productPrice, category, productStock } = req.body;
         const productImage = req.file.filename;
         const productId = Math.floor(Math.random() * 100000);
         console.log(productImage)
@@ -93,7 +93,8 @@ app.post('/addproduct', upload.single('image'), async (req, res) => {
             description: productDescription,
             price:productPrice,
             category: category,
-            image: productImage
+            image: productImage,
+            stock: productStock
         });
  
         const savedProduct = await newProduct.save();
@@ -131,7 +132,7 @@ app.post('/deleteproduct', async (req, res) => {
  
 app.post('/editproduct', async (req, res) => {
     try {
-        const { productId, productName, productDescription,productPrice, category } = req.body;
+        const { productId, productName, productDescription,productPrice, category, productStock } = req.body;
  
         console.log('Received data for updating product:', productId, productName, productDescription,productPrice);
  
@@ -139,7 +140,8 @@ app.post('/editproduct', async (req, res) => {
             name: productName,
             description: productDescription,
             category: category,
-            price:productPrice
+            price:productPrice,
+            stock: productStock
         }, { new: true });
  
         if (updatedProduct) {
@@ -176,4 +178,26 @@ app.put('/edituser/:userId', async (req, res) => {
       res.status(500).json({ success: false, message: 'Internal server error' });
     }
   });
+
+  app.post('/editproductstock', async (req, res) => {
+    try {
+        const { productId, productStock } = req.body;
+ 
+        console.log('Received data for updating product stock:', productId, productStock);
+ 
+        const updatedProduct = await Products.findByIdAndUpdate(productId, {
+            stock: productStock
+        }, { new: true });
+ 
+        if (updatedProduct) {
+            res.json({ success: true, message: 'Product stock updated successfully!', data: updatedProduct });
+        } else {
+            res.json({ success: false, message: 'Failed to update product stock!' });
+        }
+    } catch (error) {
+        console.error('Error updating product stock:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+});
+
  

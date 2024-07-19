@@ -38,7 +38,26 @@ const Products = () => {
     };
  
     const addToCart = (product) => {
-        setCart((prevCart) => [...prevCart, product]);
+        setCart((prevCart) => {
+            const existingProduct = prevCart.find(item => item._id === product._id);
+            if (existingProduct) {
+                if (existingProduct.quantity < product.stock) {
+                    return prevCart.map(item =>
+                        item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
+                    );
+                } else {
+                    alert('Not enough stock available');
+                    return prevCart;
+                }
+            } else {
+                if (product.stock > 0) {
+                    return [...prevCart, { ...product, quantity: 1 }];
+                } else {
+                    alert('Not enough stock available');
+                    return prevCart;
+                }
+            }
+        });
     };
  
     const handleRemoveFromCart = (index) => {
@@ -106,6 +125,24 @@ const Products = () => {
                 if (!transactionResponse.data) {
                     throw new Error('Failed to record transaction details');
                 }
+
+                const productId = product._id; // assuming `_id` field exists in product
+                const updatedStock = product.stock - product.quantity;
+ 
+                console.log(product.stock)
+                console.log("updated stock:" + updatedStock)
+ 
+                const stockResponse = await axios.post('http://192.168.10.24:3004/editproductstock', {
+                    productId: productId,
+                    productStock: updatedStock
+                });
+ 
+                // Update the local state to reflect the updated stock
+                setProducts((prevProducts) =>
+                    prevProducts.map((p) =>
+                        p._id === productId ? { ...p, stock: updatedStock } : p
+                    )
+                );
  
                 // Update Reports model
                 const reportsResponse = await axios.get('http://192.168.10.24:3004/api/reportdetails');
@@ -131,7 +168,7 @@ const Products = () => {
         }
     };
  
-    const categories = ['All', 'Books', 'Arts & Crafts', 'Coloring Supplies', 'Filing Supplies', 'Paper Supplies', 'Writing Supplies', 'School & Office Essentials'];
+    const categories = ['All', 'Books', 'Arts & Crafts', 'Coloring Supplies', 'Filling Supplies', 'Paper Supplies', 'Writing Supplies', 'School & Office Essentials'];
  
     const handleCategoryChange = (category) => {
         setSelectedCategory(category);
@@ -169,25 +206,33 @@ const Products = () => {
                                 <h3>{product.name}</h3>
                                 <p>{product.description}</p>
                                 <h4>₱ {product.price}</h4>
-                                <Button variant="contained" onClick={() => addToCart(product)} sx={{ backgroundColor: '#000', color: 'white' }}>Add to Cart</Button>
+                                <h4>Stock:  {product.stock}</h4>
+                                <Button
+                                variant="contained"
+                                onClick={() => addToCart(product)}
+                                disabled={product.stock === 0}
+                            >
+                                {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+                            </Button>
+
                             </div>
                         ))}
                     </div>
                 </div>
             )}
 
-            {view === 'cart' && (
+{view === 'cart' && (
                 <div className="cart-container">
                     <h2>Cart</h2>
                     {cart.map((product, index) => (
                         <div key={index} className="cart-item">
                             <h3>{product.name}</h3>
-                            <p>₱ {product.price}</p>
-                            <Button variant="contained" onClick={() => handleRemoveFromCart(index)} sx={{ backgroundColor: '#000', color: 'white' }}>Remove</Button>
+                            <p>₱ {product.price} x {product.quantity}</p>
+                            <Button variant="contained" onClick={() => handleRemoveFromCart(index)}>Remove</Button>
                         </div>
                     ))}
-                    <h3>Total: ₱ {getTotalPrice()}</h3>
-                    <Button variant="contained" onClick={handleCheckout} sx={{ backgroundColor: '#000', color: 'white' }}>Checkout</Button>
+                    <h3 className="total-price">Total: ₱ {getTotalPrice()}</h3>
+                    <Button variant="contained" onClick={handleCheckout}>Checkout</Button>
                 </div>
             )}
 

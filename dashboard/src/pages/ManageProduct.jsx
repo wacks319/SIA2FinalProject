@@ -10,6 +10,12 @@ import {
     MenuItem,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import ReportIcon from '@mui/icons-material/Report';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+
 import axios from 'axios';
 import './ManageProduct.css';
  
@@ -20,7 +26,8 @@ const ManageProduct = () => {
         productDescription: '',
         productImage: null,
         productCategory: '',
-        productImageUrl: ''
+        productImageUrl: '',
+        productStock: ''
     });
     const [selectedProduct, setSelectedProduct] = useState({
         _id: '',
@@ -28,6 +35,7 @@ const ManageProduct = () => {
         productPrice: '',
         productDescription: '',
         productCategory: '',
+        productStock: '',
         image: null
     });
     const [modalAddOpen, setModalAddOpen] = useState(false);
@@ -62,7 +70,8 @@ const ManageProduct = () => {
             productDescription: product?.description,
             productPrice: product?.price,
             image: product?.image,
-            productCategory: product?.category
+            productCategory: product?.category,
+            productStock: product?.stock
         });
         setModalEditOpen(true);
     };
@@ -75,7 +84,8 @@ const ManageProduct = () => {
             productDescription: '',
             productPrice: '',
             image: null,
-            productCategory: ''
+            productCategory: '',
+            productStock: ''
         });
     };
  
@@ -106,15 +116,16 @@ const ManageProduct = () => {
             productDescription: '',
             productImageUrl: '',
             productImage: null,
-            productCategory: ''
+            productCategory: '',
+            productStock: ''
         });
     };
  
     const handleAddProduct = async () => {
         try {
-            const { productName, productPrice, productDescription, productImage, productCategory } = products;
+            const { productName, productPrice, productDescription, productImage, productCategory, productStock } = products;
  
-            if (!productName || !productPrice || !productDescription || !productImage || !productCategory) return alert('Fields must not be empty!');
+            if (!productName || !productPrice || !productDescription || !productImage || !productCategory || !productStock) return alert('Fields must not be empty!');
  
             const formData = new FormData();
             formData.append('productName', productName);
@@ -122,6 +133,7 @@ const ManageProduct = () => {
             formData.append('productDescription', productDescription);
             formData.append('image', productImage);
             formData.append('category', productCategory);
+            formData.append('productStock', productStock);
  
             const AddProduct = await axios.post('http://192.168.10.24:3004/addproduct', formData, {
                 headers: {
@@ -136,7 +148,8 @@ const ManageProduct = () => {
                 productDescription: '',
                 productImageUrl: '',
                 productImage: null,
-                productCategory: ''
+                productCategory: '',
+                productStock: ''
             });
             fetchMenu();
         } catch (error) {
@@ -166,9 +179,9 @@ const ManageProduct = () => {
  
     const handleUpdateProduct = async () => {
         try {
-            const { _id, productName, productDescription, productPrice, productCategory } = selectedProduct;
+            const { _id, productName, productDescription, productPrice, productCategory, productStock } = selectedProduct;
  
-            if (!_id || !productName || !productDescription || !productPrice || !productCategory) {
+            if (!_id || !productName || !productDescription || !productPrice || !productCategory || !productStock) {
                 return alert('Fields must not be empty!');
             }
  
@@ -177,7 +190,8 @@ const ManageProduct = () => {
                 productName,
                 productPrice,
                 productDescription,
-                category: productCategory
+                category: productCategory,
+                productStock
             };
  
             const response = await axios.post('http://192.168.10.24:3004/editproduct', data, {
@@ -205,14 +219,29 @@ const ManageProduct = () => {
  
     return (
         <div className="admin-dashboard-container">
-            <div className="sidebar">
-                <Link to="/ManageProduct" className="sidebar-link">Manage Products</Link>
-                <Link to="/ManageAccount" className="sidebar-link">Manage Account</Link>
-                <Link to="/Products" className="sidebar-link">Shop</Link>
-                <Link to="/Report" className="sidebar-link">Reports</Link>
-                <Link to="/" className="sidebar-link">Logout</Link>
-  
-            </div>
+        <div className="sidebar">
+    <Link to="/ManageProduct" className="sidebar-link">
+        <DashboardIcon sx={{ marginRight: '10px' }} />
+        Manage Products
+    </Link>
+    <Link to="/ManageAccount" className="sidebar-link">
+        <AccountBoxIcon sx={{ marginRight: '10px' }} />
+        Manage Account
+    </Link>
+    <Link to="/Products" className="sidebar-link">
+        <StorefrontIcon sx={{ marginRight: '10px' }} />
+        Shop
+    </Link>
+    <Link to="/Report" className="sidebar-link">
+        <ReportIcon sx={{ marginRight: '10px' }} />
+        Reports
+    </Link>
+    <Link to="/" className="sidebar-link logout-link">
+        <ExitToAppIcon sx={{ marginRight: '10px' }} />
+        Logout
+    </Link>
+</div>
+
  
             <div className="header">
                 <h2>Manage Products</h2>
@@ -275,6 +304,13 @@ const ManageProduct = () => {
                                 ))}
                             </Select>
                         </FormControl>
+                        <TextField
+                            name="productStock"
+                            label="Stock"
+                            type='number'
+                            value={products.productStock}
+                            onChange={handleOnChange}
+                        />
                         <input
                             name="productImage"
                             type="file"
@@ -332,6 +368,13 @@ const ManageProduct = () => {
                                     ))}
                                 </Select>
                             </FormControl>
+                            <TextField
+                            name="productStock"
+                            label="Stock"
+                            type='number'
+                            value={selectedProduct.productStock}
+                            onChange={handleEditChange}
+                        />
                             <div className='btn-add'>
                                 <Button variant="contained" onClick={handleUpdateProduct}>Save Changes</Button>
                                 <Button variant="contained" onClick={handleDeleteProduct} startIcon={<DeleteIcon />}>Delete</Button>
@@ -351,6 +394,9 @@ const ManageProduct = () => {
                         <div className='label'>
                             <h3>{pro?.name}</h3>
                             <h3>₱ {pro?.price}</h3>
+                        </div>
+                        <div className='description'>
+                            <h3>Stock: {pro?.stock}</h3>
                         </div>
                         <div className='description'>
                             <p>{pro?.description}</p>

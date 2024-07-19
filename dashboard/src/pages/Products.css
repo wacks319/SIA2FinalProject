@@ -139,3 +139,37 @@
     background-color: #808080; /* Gray background on hover */
 }
 
+.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.category-list button {
+    color: white;
+    background-color: black;
+    border: none; /* Remove the border */
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.category-list button:hover {
+    background-color: #808080; /* Gray background on hover */
+}
+
+/* Products.css */
+
+/* Styling for the checkout button */
+.cart-container .MuiButton-containedPrimary {
+    background-color: black; /* Set button background color to black */
+    color: white; /* Set text color to white */
+}
+
+/* Hover effect for the checkout button */
+.cart-container .MuiButton-containedPrimary:hover {
+    background-color: #808080; /* Gray background color on hover */
+}
+
