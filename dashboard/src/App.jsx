@@ -12,6 +12,7 @@ import Inventory from './pages/InventoryDashboard';
 import Report from './pages/Report'; 
 import SaleList from './pages/SaleList'; 
 import InventoryReport from './pages/InventoryReport'; 
+import ShoppingList from './pages/ShoppingList'; 
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Route path="/Report" element={<Report />} />
         <Route path="/SaleList" element={<SaleList />} />
         <Route path="/InventoryReport" element={<InventoryReport />} />
+        <Route path="/ShoppingList" element={<ShoppingList />} />
       </Routes>
     </BrowserRouter>
   );

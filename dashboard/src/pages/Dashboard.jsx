@@ -81,7 +81,7 @@ function Dashboard() {
           Welcome to the National Book Store
         </h2>
         <p>
-          LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM.
+        Buy the Bestselling Books and Low Price School Supplies + Enjoy Sulit Deals and Exclusive Discounts 
         </p>
       </div>
 

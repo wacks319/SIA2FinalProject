@@ -3,6 +3,9 @@
 .manage-account-container {
     display: flex;
     flex-direction: row;
+    margin: 50px;
+    margin-top: 0;
+    margin-right: 0 ;
   }
  
   .sidebar {
