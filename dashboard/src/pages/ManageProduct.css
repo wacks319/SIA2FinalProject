@@ -62,37 +62,8 @@
     background-color: rgb(158, 158, 158);
     color: #323031;
   }
- 
-.header {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    gap: 600px;
- 
-}
- 
-h2 {
-    color: #0C1C8D;
-}
- 
-.header Button {
-    background-color: #0C1C8D;
-    color: #FFF;
-    padding: 9px 70px; /* Adjust padding to increase button width and height */
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    font-weight: bold; /* Increase font weight */
-    height: auto; /* Ensure button adjusts height based on content */
-  }
- 
-  .header Button:hover {
-    background-color: #FCDB00;
-    color: #0C1C8D;
-  }
- 
+
+
 /* modal */
 .view-modal {
     position: absolute;
@@ -136,6 +107,7 @@ h2 {
     width: 300px;
     margin: 10px;
     text-align: center;
+    max-height: 200px;
 }
  
 .product-image {
@@ -263,3 +235,52 @@ h2 {
   background-color: gray !important;
 }
 
+.card-edit {
+  width: 15rem; /* Adjust width as needed */
+  height: auto; /* Allow height to adjust based on content */
+  border: 0.5px solid grey;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-edit .image-container {
+  width: 100%;
+  height: 200px; /* Set a fixed height for the image container */
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-edit .image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover; /* Ensure the image covers the container */
+  border-radius: 10px; /* Apply border-radius to the image */
+}
+
+.label {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+}
+
+.description {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+}
+
+.card-edit:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}

@@ -6,11 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import { IconButton, Modal, Box, TextField, Button, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import Register from './Register';
  
 function ManageAccount() {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
  
   useEffect(() => {
@@ -32,7 +35,7 @@ function ManageAccount() {
       console.log('after deletion should show this log to indicate that the deletion was successful');
       navigate('/ManageAccount');
       alert('User deleted successfully');
-      fetchUsers();
+      setUsers(users.filter(user => user._id !== userId)); // Remove the deleted user from the state
     } catch (error) {
       console.error('Error deleting user:', error);
       alert('Error deleting user');
@@ -41,11 +44,11 @@ function ManageAccount() {
  
   const handleEditClick = (user) => {
     setSelectedUser(user);
-    setIsModalOpen(true);
+    setIsEditModalOpen(true);
   };
  
-  const handleModalClose = () => {
-    setIsModalOpen(false);
+  const handleEditModalClose = () => {
+    setIsEditModalOpen(false);
     setSelectedUser(null);
   };
  
@@ -54,8 +57,8 @@ function ManageAccount() {
       console.log('Selected user before update:', selectedUser);
       const response = await axios.put(`http://192.168.10.24:3004/edituser/${selectedUser._id}`, selectedUser);
       console.log('Update response:', response);
-      handleModalClose();
-      fetchUsers();
+      setUsers(users.map(user => (user._id === selectedUser._id ? selectedUser : user))); // Update the user in the state
+      handleEditModalClose();
       alert('User updated successfully');
     } catch (error) {
       console.error('Error updating user:', error);
@@ -72,13 +75,40 @@ function ManageAccount() {
     setSelectedUser({ ...selectedUser, userRole: e.target.value });
   };
  
+  const handleRegisterModalOpen = () => {
+    setIsRegisterModalOpen(true);
+  };
+ 
+  const handleRegisterModalClose = () => {
+    setIsRegisterModalOpen(false);
+  };
+ 
+  const filteredUsers = users.filter(user =>
+    user.username.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+ 
   return (
     <div className="manage-account-container">
       <div className="sidebar">
-      <Link to="/ManageProduct" className="sidebar-link">Back</Link>
+        <Link to="/ManageProduct" className="sidebar-link">Back</Link>
       </div>
       <div className="content">
-        <h1>Manage Account</h1>
+        <div className="head">
+          <h1 className="h1-center">Manage Account</h1>
+          <TextField
+            label="Search Usernames"
+            variant="outlined"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search-field"
+          />
+          <br/>
+          <br/>
+          <Button variant="contained" color="primary" onClick={handleRegisterModalOpen}>
+            Add User
+          </Button>
+        </div>
+        <br/>
         <table className="user-table">
           <thead>
             <tr>
@@ -89,7 +119,7 @@ function ManageAccount() {
             </tr>
           </thead>
           <tbody>
-            {users.map(user => (
+            {filteredUsers.map(user => (
               <tr key={user._id}>
                 <td>{user.username}</td>
                 <td>{user.email}</td>
@@ -108,7 +138,7 @@ function ManageAccount() {
         </table>
       </div>
  
-      <Modal open={isModalOpen} onClose={handleModalClose}>
+      <Modal open={isEditModalOpen} onClose={handleEditModalClose}>
         <Box sx={{ ...modalStyle }}>
           <h2>Edit User</h2>
           <TextField
@@ -146,6 +176,12 @@ function ManageAccount() {
           >
             Save Changes
           </Button>
+        </Box>
+      </Modal>
+ 
+      <Modal open={isRegisterModalOpen} onClose={handleRegisterModalClose}>
+        <Box sx={{ ...modalStyle }}>
+          <Register closeModal={handleRegisterModalClose} />
         </Box>
       </Modal>
     </div>
