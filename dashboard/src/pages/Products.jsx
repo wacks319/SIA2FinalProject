@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import StorefrontIcon from '@mui/icons-material/Storefront';
+import LogoutIcon from '@mui/icons-material/Logout';
 import axios from 'axios';
 import './Products.css';
+import ShopNavbar from './ShopNavbar'; // Assuming Navbar is correctly implemented
 import Billing from '../pages/Billing';
  
 const Products = () => {
@@ -178,9 +180,11 @@ const Products = () => {
 
     return (
         <div className="app-container">
+             <ShopNavbar />
             <nav className="navbar">
                 <Button onClick={() => setView('shop')} startIcon={<StorefrontIcon />} sx={{ color: 'black' }}>Shop</Button>
                 <Button onClick={() => setView('cart')} startIcon={<ShoppingCartIcon />} sx={{ color: 'black' }}>Cart ({cart.length})</Button>
+
             </nav>
 
             <div className="category-list">

@@ -173,3 +173,68 @@
     background-color: #808080; /* Gray background color on hover */
 }
 
+.products-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 100fr));
+    gap: 30px;
+    justify-items: center; /* Center items horizontally */
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 50%; /* Ensure each product card takes full height */
+    padding: 20px;
+    text-align: center;
+    padding-bottom: 55%;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    max-width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px; /* Add space below the image */
+}
+
+.product-card h3 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.product-card p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px; /* Add space below the description */
+}
+
+.product-card h4 {
+    font-size: 16px;
+    color: #333;
+    margin: 10px 0;
+}
+
+.product-card button {
+    margin-top: auto; /* Align button to the bottom */
+    color: white;
+    background-color: black;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.product-card button:hover {
+    background-color: #808080;
+}
+

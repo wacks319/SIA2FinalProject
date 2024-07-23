@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { IconButton, Modal, Box, Typography } from '@mui/material';
 import { Person, ShoppingCart } from '@mui/icons-material';
-import './Navbar.css';
+import LogoutIcon from '@mui/icons-material/Logout';
+import './ShopNavbar.css';
 
-function Navbar() {
+function ShopNavbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [cartOpen, setCartOpen] = useState(false); // State to handle modal open/close
   const navigate = useNavigate();
@@ -33,11 +34,8 @@ function Navbar() {
         </div>
        
       <div className='navbar-links'>
-        <Link to="/" className='navbar-link'>Home</Link>
-        <Link to="/Login" className='navbar-link'>Shop</Link>
-        <Link to="/ShoppingList" className='navbar-link'>Branch</Link>
-        <IconButton color="inherit" component={Link} to="/login">
-            <Person />
+        <IconButton color="inherit" component={Link} to="/">
+            <LogoutIcon />
           </IconButton>
       </div>
 
@@ -61,4 +59,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default ShopNavbar;

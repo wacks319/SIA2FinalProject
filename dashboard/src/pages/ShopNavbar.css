@@ -1,0 +1,38 @@
+.navbar {
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+    position: sticky;
+    height: 80px;
+    top: 0;
+    width: 100%; /* Full width */
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+  
+  .logo-img img {
+    max-width: 100%; /* Ensure logo scales with the container */
+    height: auto;
+    margin-right: 10px;
+  }
+  .navbar-link:hover {
+    background-color: rgb(143, 140, 140);
+    color: #f55648;
+  }
+  
+  @media (max-width: 768px) {
+    .search-bar {
+      margin-left: auto; /* Move search bar to the right on smaller screens */
+    }
+  
+    .navbar-links {
+      flex-wrap: wrap; /* Allow links to wrap onto new lines */
+      justify-content: flex-end; /* Align links to the right */
+      gap: 10px;
+      margin-right: 0; /* Reset margin */
+    }
+  }
+  
+  

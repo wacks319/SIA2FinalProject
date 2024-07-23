@@ -15,7 +15,6 @@ const Billing = ({ cart, transactionMode, billingDetails, handleTransactionModeC
                 onChange={handleTransactionModeChange}
             >
                 <FormControlLabel value="Union Bank" control={<Radio />} label="Union Bank" />
-                <FormControlLabel value="Metro Bank" control={<Radio />} label="Metro Bank" />
             </RadioGroup>
  
             {transactionMode === 'Union Bank' && (
@@ -28,16 +27,6 @@ const Billing = ({ cart, transactionMode, billingDetails, handleTransactionModeC
                     />
                 
  
-                </div>
-            )}
-            {transactionMode === 'Metro Bank' && (
-                <div className="bank-account-form">
-                    <TextField
-                        name="debitAccount"
-                        label="Bank Account Number"
-                        value={billingDetails?.debitAccount}
-                        onChange={handleBillingChange}
-                    />
                 </div>
             )}
             <h3>Total: ₱ {getTotalPrice()}</h3>
