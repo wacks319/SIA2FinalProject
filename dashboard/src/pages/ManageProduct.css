@@ -1,282 +1,144 @@
-.add-button {
-    background-color: black !important;
-    color: white !important;
-    transition: background-color 0.3s;
-  }
-  
-  .add-button:hover {
-    background-color: gray !important;
-  }
-  
-  .add-button,
-.view-modal .MuiButtonBase-root {
-  background-color: black !important;
-  color: white !important;
-  transition: background-color 0.3s;
+/* Container for the admin dashboard */
+.admin-dashboard-container {
+  margin-left: 300px; /* Adjust this value based on the width of your sidebar */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
 }
 
-.add-button:hover,
-.view-modal .MuiButtonBase-root:hover {
-  background-color: gray !important;
+/* Sidebar styling */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 300px;
+  background-color: #0C1C8D;
+  transition: left 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-link {
+  color: white;
+  text-decoration: none;
+  margin: 15px 0;
+  padding: 10px 15px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar-link:hover {
+  background-color: rgb(158, 158, 158);
+  color: #323031;
+}
+
+/* Header styling */
+.header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between; /* Adjusted to space out elements */
+  padding-bottom: 30px;
 }
 
 .header h2 {
-    color: black;
-  }
-
-  .admin-dashboard-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 30px;
-    margin: 350px;
-    margin-top: 0;
-    margin-right: 0 ;
+  color: #0C1C8D;
 }
- 
-.sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 300px;
-    background-color: #0C1C8D;
-    transition: left 0.3s ease;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
- 
-  .sidebar-link {
-    color: white;
-    text-decoration: none;
-    margin: 15px 0;
-    padding: 10px 15px;
-    border-radius: 6px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
- 
-  .sidebar-link:hover {
-    background-color: rgb(158, 158, 158);
-    color: #323031;
-  }
 
+.header Button {
+  background-color: #0C1C8D;
+  color: #FFF;
+  padding: 9px 70px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-weight: bold;
+  height: auto;
+}
 
-/* modal */
+.header Button:hover {
+  background-color: #FCDB00;
+  color: #0C1C8D;
+}
+
+/* Modal styling */
 .view-modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 3rem;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 19rem;
-    height: auto;
-       
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 3rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 19rem; /* Increased width */
+  height: auto;
 }
- 
-.modal-forms {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 25px;
- 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
- 
-}
- 
-/* .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    border: blue 1px solid;
- 
-} */
- 
-.product-card {
-    width: 300px;
-    margin: 10px;
-    text-align: center;
-    max-height: 200px;
-}
- 
-.product-image {
-    max-width: 100%;
-    max-height: 200px;
-    object-fit: cover;
- 
-}
- 
-.image-container {
-    width: 11rem;
-    height: 11rem;
-    border: 1px solid;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
- 
-.image-container img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-}
- 
-.image-container h1 {
-    font-size: 1rem;
-}
- 
-.btn-add{
-    display: flex;
-    flex-direction: column;
 
-    width: 100%;
-    gap: 15px;
+.modal-forms {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 25px;
+  align-items: center;
+  justify-content: center;
 }
- 
-.edit-menu-container {
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: start;
-    gap: 1rem;
-    overflow: hidden;
-    padding: 10px;
-    /* border: 1px green solid; */
-}
- 
-.label{
-    display: flex;
-    gap: 20px;
-    width: 100%;
-   justify-content: center;
-        /* border: 1px green solid; */
-}
-.description{
-    display: flex;
-    gap: 20px;
-    width: 100%;
-   justify-content:center;
-        /* border: 1px red solid; */
-}
- 
- 
+
+/* Consistent card styling */
 .card-edit {
-    width: 15rem;
-    height: 15rem;
+  width: 15rem;
+    height: auto;
     border: 0.5px solid grey;
     display: flex;
     flex-direction: column;
     align-items: center;
     border-radius: 10px;
     overflow: hidden;
-    /* border: 1px red solid; */
     padding: 10px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+
 }
- 
+
 .card-edit .image-container {
-    width: 100%;
-    height: 60%;
-    border-radius: 10px;
-    /* overflow: hidden; */
-}
- 
-.admin-btn{
-    display: flex;
-    /* background-color: red; */
-    gap: 5px;
-}
- 
-.card-edit:hover {
-    cursor: pointer;
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
- 
- /* Update button styles */
-.view-modal .MuiButtonBase-root,
-.header Button,
-.btn-add Button,
-.card-edit:hover {
-    background-color: black !important;
-    color: white !important;
-    transition: background-color 0.3s ease, color 0.3s ease;
+  width: 100%;
+  height: 150px;  /* Ensure this matches the fixed height set above */
 }
 
-/* Add hover effect */
-.view-modal .MuiButtonBase-root:hover,
-.header Button:hover,
-.btn-add Button:hover,
-.card-edit:hover {
-    background-color: gray !important;
+.card-edit img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
-.category-button {
-  background-color: black !important;
-  color: white !important;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.category-button:hover {
-  background-color: gray !important;
-}
-
-.card-edit {
-  width: 15rem; /* Adjust width as needed */
-  height: auto; /* Allow height to adjust based on content */
-  border: 0.5px solid grey;
+/* Button styling inside modal */
+.btn-add {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  border-radius: 10px;
+  width: 100%;
+  gap: 15px;
+}
+
+/* Edit menu container styling */
+.edit-menu-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: start;
+  gap: 1rem;
   overflow: hidden;
   padding: 10px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card-edit .image-container {
-  width: 100%;
-  height: 200px; /* Set a fixed height for the image container */
-  border-radius: 10px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.card-edit .image-container img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: cover; /* Ensure the image covers the container */
-  border-radius: 10px; /* Apply border-radius to the image */
-}
-
-.label {
-  display: flex;
-  gap: 20px;
-  width: 100%;
-  justify-content: center;
-}
-
-.description {
-  display: flex;
-  gap: 20px;
-  width: 100%;
-  justify-content: center;
 }
 
 .card-edit:hover {
@@ -284,3 +146,42 @@
   transform: scale(1.05);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
+
+.product-card {
+  width: 300px;
+  margin: 10px;
+  text-align: center;
+}
+
+.product-image {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.image-container {
+  width: 150px;  /* Set fixed width */
+  height: 150px; /* Set fixed height */
+  border: 1px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 10px; /* Optional: to match card border radius */
+}
+
+.image-container img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.description {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+

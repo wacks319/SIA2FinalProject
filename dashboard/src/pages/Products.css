@@ -10,7 +10,7 @@
     justify-content: space-between;
     background-color: #f8f8f8;
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
 }
 
 /* Ensure these containers are styled similarly */
@@ -151,7 +151,7 @@
     background-color: black;
     border: none; /* Remove the border */
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -191,7 +191,7 @@
     height: 50%; /* Ensure each product card takes full height */
     padding: 20px;
     text-align: center;
-    padding-bottom: 55%;
+    padding-bottom: 3%;
 }
 
 .product-card:hover {
