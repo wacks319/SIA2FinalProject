@@ -78,7 +78,7 @@ function Dashboard() {
       </div>
       <div className='main-section'>
         <h2>
-          Welcome to the Bookly
+          Welcome to the Bookly!
         </h2>
         <p>
         Bookly is a digital library platform that provides easy access to a wide collection of e-books
