@@ -17,8 +17,7 @@ import BackupAndRestore from './pages/BackupAndRestore';
 
 function App() {
   return (
-    <BrowserRouter>
-      
+    <BrowserRouter basename="/SIA2FinalProject-2">
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/Products" element={<Menu />} />
