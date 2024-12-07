@@ -13,7 +13,7 @@ import Report from './pages/Report';
 import SaleList from './pages/SaleList'; 
 import InventoryReport from './pages/InventoryReport'; 
 import ShoppingList from './pages/ShoppingList'; 
-
+import BackupAndRestore from './pages/BackupAndRestore'; 
 
 function App() {
   return (

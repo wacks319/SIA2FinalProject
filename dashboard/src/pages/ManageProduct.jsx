@@ -236,10 +236,16 @@ const ManageProduct = () => {
         <ReportIcon sx={{ marginRight: '10px' }} />
         Reports
     </Link>
+    <Link to="/BackupandRestore" className="sidebar-link sidebar-link">
+        <ExitToAppIcon sx={{ marginRight: '10px' }} />
+        Backup and Restore
+    </Link>
+
     <Link to="/" className="sidebar-link logout-link">
         <ExitToAppIcon sx={{ marginRight: '10px' }} />
         Logout
     </Link>
+    
 </div>
 
  
