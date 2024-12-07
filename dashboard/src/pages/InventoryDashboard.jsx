@@ -135,7 +135,7 @@ const InventoryDashboard = () => {
             formData.append('category', productCategory);
             formData.append('productStock', productStock);
  
-            const AddProduct = await axios.post('http://192.168.10.24:3004/addproduct', formData, {
+            const AddProduct = await axios.post('http://localhost:3004/addproduct', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -161,7 +161,7 @@ const InventoryDashboard = () => {
  
     const handleDeleteProduct = async () => {
         try {
-            await axios.post('http://192.168.10.24:3004/deleteproduct', { productId: selectedProduct._id });
+            await axios.post('http://localhost:3004/deleteproduct', { productId: selectedProduct._id });
             setValues((prev) => prev.filter((product) => product._id !== selectedProduct._id));
             handleCloseEditModal();
         } catch (error) {
@@ -194,7 +194,7 @@ const InventoryDashboard = () => {
                 productStock
             };
  
-            const response = await axios.post('http://192.168.10.24:3004/editproduct', data, {
+            const response = await axios.post('http://localhost:3004/editproduct', data, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -213,7 +213,7 @@ const InventoryDashboard = () => {
     };
  
     const fetchMenu = async () => {
-        const menu = await axios.get('http://192.168.10.24:3004/getallproducts');
+        const menu = await axios.get('http://localhost:3004/getallproducts');
         setValues(menu?.data?.data);
     };
  
@@ -324,7 +324,7 @@ const InventoryDashboard = () => {
                         <div className="modal-forms">
                             <div className="image-container">
                                 {selectedProduct.image ? (
-                                    <img src={`http://192.168.10.24:3004/uploads/${selectedProduct.image}`} alt="Product" />
+                                    <img src={`http://localhost:3004/uploads/${selectedProduct.image}`} alt="Product" />
                                 ) : (
                                     <h1>No image</h1>
                                 )}
@@ -381,7 +381,7 @@ const InventoryDashboard = () => {
                 {filteredValues?.map((pro) => (
                     <div key={pro?._id} className="card-edit" onClick={() => handleOpenEditModal(pro)}>
                         <div className="image-container">
-                            <img src={`http://192.168.10.24:3004/uploads/${pro?.image}`} alt='' />
+                            <img src={`http://localhost:3004/uploads/${pro?.image}`} alt='' />
                         </div>
                         <div className='label'>
                             <h3>{pro?.name}</h3>

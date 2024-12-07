@@ -28,7 +28,7 @@ const Products = () => {
     const fetchProducts = async () => {
         try {
             const routingNumber = "000000010";
-            const response = await axios.get('http://192.168.10.24:3004/getallproducts');
+            const response = await axios.get('http://localhost:3004/getallproducts');
             setProducts(response?.data?.data || []);
             setValues((prev) => ({
                 ...prev,
@@ -96,63 +96,48 @@ const Products = () => {
             const debit = values.debitAccount;
             const credit = values.creditAccount;
             const amount = getTotalPrice();
- 
-            // Step 1: Transfer transaction
-            const transferResponse = await axios.post('http://192.168.10.14:3001/api/unionbank/transfertransaction', {
-                debitAccount: debit,
-                creditAccount: credit,
-                amount: amount
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
- 
-            console.log(transferResponse.data.message)
-            alert(transferResponse.data.message)
-            if (!transferResponse.data) {
-                throw new Error('Transfer transaction failed');
-            }
- 
+            
+            // Removed Step 1: Transfer transaction
+    
             // Step 2: Record transaction details and update reports
             for (const product of cart) {
                 // Record transaction detail
-                const transactionResponse = await axios.post('http://192.168.10.24:3004/api/salesdetails', {
+                const transactionResponse = await axios.post('http://localhost:3004/api/salesdetails', {
                     product: product.name,
                     quantity: 1, // Assuming 1 for simplicity, adjust as needed
                     price: product.price,
                     date: new Date()
                 });
- 
+    
                 if (!transactionResponse.data) {
                     throw new Error('Failed to record transaction details');
                 }
-
+    
                 const productId = product._id; // assuming `_id` field exists in product
                 const updatedStock = product.stock - product.quantity;
- 
-                console.log(product.stock)
-                console.log("updated stock:" + updatedStock)
- 
-                const stockResponse = await axios.post('http://192.168.10.24:3004/editproductstock', {
+    
+                console.log(product.stock);
+                console.log("updated stock:" + updatedStock);
+    
+                const stockResponse = await axios.post('http://localhost:3004/editproductstock', {
                     productId: productId,
                     productStock: updatedStock
                 });
- 
+    
                 // Update the local state to reflect the updated stock
                 setProducts((prevProducts) =>
                     prevProducts.map((p) =>
                         p._id === productId ? { ...p, stock: updatedStock } : p
                     )
                 );
- 
+    
                 // Update Reports model
-                const reportsResponse = await axios.get('http://192.168.10.24:3004/api/reportdetails');
+                const reportsResponse = await axios.get('http://localhost:3004/api/reportdetails');
                 const reports = reportsResponse.data.data;
- 
+    
                 if (!Array.isArray(reports) || reports.length === 0) {
                     // Create new report if none exists
-                    await axios.post('http://192.168.10.24:3004/api/reportdetails', {
+                    await axios.post('http://localhost:3004/api/reportdetails', {
                         totalSales: product.price,
                         totalOrders: 1,
                         bestSeller: product.name
@@ -162,13 +147,14 @@ const Products = () => {
                     const update = reports[0];
                     update.totalSales += product.price;
                     update.totalOrders++;
-                    await axios.put(`http://192.168.10.24:3004/api/reportdetails/${update._id}`, update);
+                    await axios.put(`http://localhost:3004/api/reportdetails/${update._id}`, update);
                 }
             }
         } catch (error) {
             console.error('Error submitting payment:', error);
         }
     };
+    
  
     const categories = ['All', 'Books', 'Arts & Crafts', 'Coloring Supplies', 'Filling Supplies', 'Paper Supplies', 'Writing Supplies', 'School & Office Essentials'];
  
@@ -206,7 +192,7 @@ const Products = () => {
                     <div className="products-list">
                         {filteredValues.map((product) => (
                             <div key={product._id} className="product-card">
-                                <img src={`http://192.168.10.24:3004/uploads/${product.image}`} alt={product.name} />
+                                <img src={`http://localhost:3004/uploads/${product.image}`} alt={product.name} />
                                 <h3>{product.name}</h3>
                                 <p>{product.description}</p>
                                 <h4>₱ {product.price}</h4>

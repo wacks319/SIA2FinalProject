@@ -30,7 +30,7 @@ function Dashboard() {
 
   const fetchMenu = async () => {
     try {
-      const response = await axios.get('http://192.168.10.24:3004/getallproducts');
+      const response = await axios.get('http://localhost:3004/getallproducts');
       setValues(response?.data?.data || []); // Ensure to handle empty response or errors
     } catch (error) {
       console.error('Error fetching menu:', error);
@@ -94,7 +94,7 @@ function Dashboard() {
             {values.map((pro) => (
               <div key={pro?._id} className="card" onClick={() => openModal(pro)}>
                 <div className="image-container">
-                  <img src={`http://192.168.10.24:3004/uploads/${pro?.image}`} alt="" />
+                  <img src={`http://localhost:3004/uploads/${pro?.image}`} alt="" />
                 </div>
                 <div className="label">
                   <h3>{pro?.name}</h3>

@@ -22,7 +22,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://192.168.10.24:3004/api/users', formData);
+      const response = await axios.post('http://localhost:3004/api/users', formData);
       setFormData({ username: '', email: '', password: '' });
       setErrors({});
       window.alert('User registered successfully!'); // Show alert on successful registration

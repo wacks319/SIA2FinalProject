@@ -16,7 +16,7 @@ function InventoryReport() {
  
   const fetchReportsData = async () => {
     try {
-      const response = await axios.get('http://192.168.10.24:3004/api/reportdetails');
+      const response = await axios.get('http://localhost:3004/api/reportdetails');
       const reports = response.data; // Assuming response.data directly contains the array of reports
      
       if (reports && reports.length > 0) {
@@ -50,7 +50,7 @@ function InventoryReport() {
  
   const fetchSalesDetails = async () => {
     try {
-      const response = await axios.get('http://192.168.10.24:3004/api/salesdetails');
+      const response = await axios.get('http://localhost:3004/api/salesdetails');
       const sales = response.data;
       console.log('Sales details:', sales); // Check what 'sales' contains
       setSalesDetails(sales);
