@@ -91,10 +91,10 @@ app.post('/addproduct', upload.single('image'), async (req, res) => {
             productId: productId,
             name: productName,
             description: productDescription,
-            price:productPrice,
+            // price:productPrice,
             category: category,
             image: productImage,
-            stock: productStock
+            // stock: productStock
         });
  
         const savedProduct = await newProduct.save();

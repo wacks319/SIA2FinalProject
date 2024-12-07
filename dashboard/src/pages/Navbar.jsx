@@ -34,8 +34,8 @@ function Navbar() {
        
       <div className='navbar-links'>
         <Link to="/" className='navbar-link'>Home</Link>
-        <Link to="/Login" className='navbar-link'>Shop</Link>
-        <Link to="/ShoppingList" className='navbar-link'>Branch</Link>
+        <Link to="/Login" className='navbar-link'>Books</Link>
+        {/* <Link to="/ShoppingList" className='navbar-link'>Branch</Link> */}
         <IconButton color="inherit" component={Link} to="/login">
             <Person />
           </IconButton>

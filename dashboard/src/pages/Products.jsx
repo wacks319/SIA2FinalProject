@@ -156,7 +156,7 @@ const Products = () => {
     };
     
  
-    const categories = ['All', 'Books', 'Arts & Crafts', 'Coloring Supplies', 'Filling Supplies', 'Paper Supplies', 'Writing Supplies', 'School & Office Essentials'];
+    const categories = ['All', 'Anime', 'Action', 'Horror'];
  
     const handleCategoryChange = (category) => {
         setSelectedCategory(category);
@@ -168,8 +168,8 @@ const Products = () => {
         <div className="app-container">
              <ShopNavbar />
             <nav className="navbar">
-                <Button onClick={() => setView('shop')} startIcon={<StorefrontIcon />} sx={{ color: 'black' }}>Shop</Button>
-                <Button onClick={() => setView('cart')} startIcon={<ShoppingCartIcon />} sx={{ color: 'black' }}>Cart ({cart.length})</Button>
+                {/* <Button onClick={() => setView('shop')} startIcon={<StorefrontIcon />} sx={{ color: 'black' }}>Shop</Button>
+                <Button onClick={() => setView('cart')} startIcon={<ShoppingCartIcon />} sx={{ color: 'black' }}>Cart ({cart.length})</Button> */}
 
             </nav>
 
@@ -188,22 +188,22 @@ const Products = () => {
 
             {view === 'shop' && (
                 <div className="shop-container">
-                    <h2>Shop</h2>
+                    <h2>Books</h2>
                     <div className="products-list">
                         {filteredValues.map((product) => (
                             <div key={product._id} className="product-card">
                                 <img src={`http://localhost:3004/uploads/${product.image}`} alt={product.name} />
                                 <h3>{product.name}</h3>
                                 <p>{product.description}</p>
-                                <h4>₱ {product.price}</h4>
-                                <h4>Stock:  {product.stock}</h4>
-                                <Button
+                                {/* <h4>₱ {product.price}</h4> */}
+                                {/* <h4>Stock:  {product.stock}</h4> */}
+                                {/* <Button
                                 variant="contained"
                                 onClick={() => addToCart(product)}
                                 disabled={product.stock === 0}
                             >
                                 {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
-                            </Button>
+                            </Button> */}
 
                             </div>
                         ))}

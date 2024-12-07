@@ -64,7 +64,7 @@ function Dashboard() {
     <div className="dashboard">
         <Navbar />
       <div className='image-section'>
-        <Slider {...settings}>
+        {/* <Slider {...settings}>
           <div>
             <img src="carousel1.png" alt="Image 1" />
           </div>
@@ -74,19 +74,19 @@ function Dashboard() {
           <div>
             <img src="carousel3.png" alt="Image 3" />
           </div>
-        </Slider>
+        </Slider> */}
       </div>
       <div className='main-section'>
         <h2>
-          Welcome to the National Book Store
+          Welcome to the Bookly
         </h2>
         <p>
-        Buy the Bestselling Books and Low Price School Supplies + Enjoy Sulit Deals and Exclusive Discounts 
+        Bookly is a digital library platform that provides easy access to a wide collection of e-books
         </p>
       </div>
 
       <div className="menu">
-        <h1>Products</h1>
+        <h1>Books</h1>
         {error ? (
           <p>{error}</p>
         ) : (
@@ -98,7 +98,7 @@ function Dashboard() {
                 </div>
                 <div className="label">
                   <h3>{pro?.name}</h3>
-                  <h3>₱ {pro?.price}</h3>
+                  {/* <h3>₱ {pro?.price}</h3> */}
                 </div>
                 <div className="description">
                   <p>{pro?.description}</p>

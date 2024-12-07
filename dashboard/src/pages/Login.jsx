@@ -11,7 +11,7 @@ import Checkbox from '@mui/material/Checkbox';
 import axios from 'axios';
 import './Login.css';
 
-import loginImage from '../../public/nbs.jpg'; // Adjust the path as necessary
+import loginImage from '../../public/logo.jpg'; // Adjust the path as necessary
 
 function Login() {
   const [ModalStudOpen, setModalStudOpen] = useState(true);
@@ -79,7 +79,7 @@ function Login() {
             <h1>Login</h1>
             <div className="example-credentials">
               <p><strong>admin</strong> password: admin</p>
-              <p><strong>staff</strong> password: staff</p>
+              {/* <p><strong>staff</strong> password: staff</p> */}
               <p><strong>user</strong> password: user</p>
             </div>
             <div className="login-forms">
