@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function BackupAndRestore() {
-  return (
-    <div>
-      
-    </div>
-  )
+  return React.createElement('div', null, ''); // or your content
 }
 
-export default BackupAndRestore
+export default BackupAndRestore;

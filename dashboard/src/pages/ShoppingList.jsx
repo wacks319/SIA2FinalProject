@@ -1,5 +1,3 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
@@ -7,12 +5,8 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import './ShoppingList.css';
-import { Button } from '@mui/material';
+import Navbar from './Navbar';
 
-import Navbar from './Navbar'; // Assuming Navbar is correctly implemented
-
-import { useNavigate } from 'react-router-dom';
- 
 const items = [
   { url: "http://192.168.10.12/YACAPIN", img: "WNE.png", caption: "Watch and Earn" },
   { url: "http://192.168.10.14", img: "UnionBank.png", caption: "Union Bank" },
@@ -43,45 +37,44 @@ const items = [
   { url: "http://192.168.10.39", img: "Order.png", caption: "Order 39" },
   { url: "http://192.168.10.40", img: "Order.png", caption: "Order 40" },
 ];
- 
- 
- 
- 
+
 function ShoppingList() {
-  const navigate = useNavigate();
- 
-
   return (
-   
     <div className="container">
-          <Navbar />
-
-<Grid container spacing={2} className="grid-container">
-      {items.map((item, index) => (
-        <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-          <Card className="card">
-            <CardActionArea component={Link} to={item.url} className="card-action-area">
-              <CardMedia
-                component="img"
-                alt={item.caption}
-                className="card-media"
-                image={item.img}
-              />
-              <CardContent className="card-content">
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {item.caption}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Grid>
-      ))}
-    </Grid>
- 
+      <Navbar />
+      <Grid container spacing={2} className="grid-container">
+        {items.map((item, index) => (
+          <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+            <Card className="card">
+              <CardActionArea
+                component="a"
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card-action-area"
+              >
+                <CardMedia
+                  component="img"
+                  alt={item.caption}
+                  image={item.img}
+                  className="card-media"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = 'fallback-image.jpg'; // Optional fallback
+                  }}
+                />
+                <CardContent className="card-content">
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    {item.caption}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
     </div>
-   
   );
 }
- 
+
 export default ShoppingList;
- 

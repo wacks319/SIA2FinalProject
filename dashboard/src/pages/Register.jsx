@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import './Register.css';
 import { TextField, Button, Typography, Box } from '@mui/material';
@@ -7,26 +7,35 @@ const Register = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
-    password: ''
+    password: '',
+    role: 'buyer', // always buyer
   });
 
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3004/api/users', formData);
-      setFormData({ username: '', email: '', password: '' });
+      await axios.post('http://localhost:3004/api/users', {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+        userRole: 'buyer' // force buyer
+      });
+      alert('Registration successful!');
+      setFormData({ username: '', email: '', password: '', role: 'buyer' });
       setErrors({});
-      window.alert('User registered successfully!'); // Show alert on successful registration
+      window.location.href = '/Login'; // redirect to login
     } catch (error) {
+      let msg = 'Registration failed!';
+      if (error.response && error.response.data && error.response.data.message) {
+        msg += ' ' + error.response.data.message;
+      }
+      alert(msg);
       if (error.response) {
         setErrors(error.response.data.error || {});
       } else {
@@ -51,8 +60,6 @@ const Register = () => {
               fullWidth
               variant="outlined"
               margin="normal"
-              error={!!errors.username}
-              helperText={errors.username}
               required
             />
           </Box>

@@ -1,62 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { IconButton, Modal, Box, Typography } from '@mui/material';
-import { Person, ShoppingCart } from '@mui/icons-material';
-import LogoutIcon from '@mui/icons-material/Logout';
-import './ShopNavbar.css';
+// import { useEffect, useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import { IconButton, Modal, Box, Typography } from '@mui/material';
+// import LogoutIcon from '@mui/icons-material/Logout';
+// import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+// import './ShopNavbar.css';
 
-function ShopNavbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false); // State to handle modal open/close
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    setIsLoggedIn(!!token);
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    setIsLoggedIn(false);
-    navigate('/');
-    window.location.reload();
-  };
-
-  const handleCartOpen = () => setCartOpen(true);
-  const handleCartClose = () => setCartOpen(false);
-
-  return (
-    <nav className="navbar">
-    
-        <div className='logo-img'>
-          <img src="logo.jpg" alt="logo" />
-        </div>
-       
-      <div className='navbar-links'>
-        <IconButton color="inherit" component={Link} to="/">
-            <LogoutIcon />
-          </IconButton>
-      </div>
-
-      {/* Modal for cart */}
-      <Modal
-        open={cartOpen}
-        onClose={handleCartClose}
-        aria-labelledby="cart-modal-title"
-        aria-describedby="cart-modal-description"
-      >
-        <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '80%', maxWidth: 400, bgcolor: 'background.paper', border: '2px solid #000', boxShadow: 24, p: 4 }}>
-          <Typography id="cart-modal-title" variant="h6" component="h2">
-            Cart Items
-          </Typography>
-          <Typography id="cart-modal-description" sx={{ mt: 2 }}>
-            Your cart is currently empty.
-          </Typography>
-        </Box>
-      </Modal>
-    </nav>
-  );
-}
+const ShopNavbar = () => {
+    // ...your component code...
+};
 
 export default ShopNavbar;

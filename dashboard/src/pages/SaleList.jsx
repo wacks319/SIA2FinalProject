@@ -1,7 +1,23 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import './SaleList.css';
 
 export default function SaleList() {
+  const [sales, setSales] = useState([]);
+
+  useEffect(() => {
+    fetchSales();
+  }, []);
+
+  const fetchSales = async () => {
+    try {
+      const response = await axios.get('http://localhost:3004/api/salesdetails');
+      setSales(response.data);
+    } catch (error) {
+      console.error('Error fetching sales:', error);
+    }
+  };
+
   return (
     <div className="sales-list-container">
       <h1 className="sales-list-title">Sales</h1>
@@ -11,19 +27,14 @@ export default function SaleList() {
         <div className="sales-list-column">Price</div>
         <div className="sales-list-column">Date</div>
       </div>
-      <div className="sales-list-item">
-        <div className="sales-list-column">Product 1</div>
-        <div className="sales-list-column">2</div>
-        <div className="sales-list-column">₱100</div>
-        <div className="sales-list-column">2024-07-08</div>
-      </div>
-      <div className="sales-list-item">
-        <div className="sales-list-column">Product 2</div>
-        <div className="sales-list-column">1</div>
-        <div className="sales-list-column">₱50</div>
-        <div className="sales-list-column">2024-07-08</div>
-      </div>
-      {/* Add more sales list items here */}
+      {sales.map((sale) => (
+        <div className="sales-list-item" key={sale._id}>
+          <div className="sales-list-column">{sale.product}</div>
+          <div className="sales-list-column">{sale.quantity}</div>
+          <div className="sales-list-column">₱{sale.price}</div>
+          <div className="sales-list-column">{new Date(sale.date).toLocaleDateString()}</div>
+        </div>
+      ))}
     </div>
   );
 }

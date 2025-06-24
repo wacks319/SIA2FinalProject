@@ -1,44 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Report.css';
- 
+
 function Report() {
   const [totalSales, setTotalSales] = useState(0);
   const [totalOrders, setTotalOrders] = useState(0);
   const [bestSeller, setBestSeller] = useState('');
   const [salesDetails, setSalesDetails] = useState([]);
- 
+
   useEffect(() => {
     fetchReportsData();
     fetchSalesDetails();
   }, []);
- 
+
   const fetchReportsData = async () => {
     try {
       const response = await axios.get('http://localhost:3004/api/reportdetails');
       const reports = response.data; // Assuming response.data directly contains the array of reports
-     
+
       if (reports && reports.length > 0) {
         // Initialize counters
         let totalSalesCounter = 0;
         let totalOrdersCounter = 0;
         const productCounts = {};
- 
+
         reports.forEach(report => {
           totalSalesCounter += report.totalSales;
           totalOrdersCounter += report.totalOrders;
- 
+
           if (productCounts[report.bestSeller]) {
             productCounts[report.bestSeller] += 1;
           } else {
             productCounts[report.bestSeller] = 1;
           }
         });
- 
+
         // Determine best seller
         const bestSellerProduct = Object.keys(productCounts).reduce((a, b) => productCounts[a] > productCounts[b] ? a : b);
- 
+
         setTotalSales(totalSalesCounter);
         setTotalOrders(totalOrdersCounter);
         setBestSeller(bestSellerProduct);
@@ -47,7 +47,7 @@ function Report() {
       console.error('Error fetching reports:', error);
     }
   };
- 
+
   const fetchSalesDetails = async () => {
     try {
       const response = await axios.get('http://localhost:3004/api/salesdetails');
@@ -58,7 +58,7 @@ function Report() {
       console.error('Error fetching sales details:', error);
     }
   };
- 
+
   return (
     <div className="view-logs-container">
       <div className="sidebar">
@@ -66,7 +66,7 @@ function Report() {
       </div>
       <div className="content">
         <h1>Reports</h1>
- 
+
         <div className="report-container">
           <div className="report-summary">
             <div className="summary-item">
@@ -108,6 +108,5 @@ function Report() {
     </div>
   );
 }
- 
+
 export default Report;
- 

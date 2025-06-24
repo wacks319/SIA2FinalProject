@@ -1,0 +1,59 @@
+/* Receipt.css - Book Seller Theme */
+
+.receipt-paper {
+    background: #f9f6f1;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    padding: 32px 24px;
+    max-width: 420px;
+    margin: 40px auto;
+    font-family: 'Merriweather', serif;
+}
+
+.receipt-title {
+    font-family: 'Merriweather', serif;
+    color: #4b2e05;
+    font-size: 2rem;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.receipt-divider {
+    margin: 16px 0;
+    border: none;
+    border-top: 2px dashed #c9b79c;
+}
+
+.receipt-label {
+    color: #7c5e2a;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.receipt-item {
+    color: #3e2723;
+    font-size: 1rem;
+    margin-left: 8px;
+}
+
+.receipt-total {
+    color: #b8860b;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 16px;
+}
+
+.receipt-close-btn {
+    background: #4b2e05;
+    color: #fff;
+    margin-top: 20px;
+    width: 100%;
+    font-family: 'Merriweather', serif;
+    font-size: 1rem;
+    border-radius: 6px;
+}
+
+.receipt-close-btn:hover {
+    background: #7c5e2a;
+}

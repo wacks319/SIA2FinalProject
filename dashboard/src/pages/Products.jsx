@@ -1,49 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import StorefrontIcon from '@mui/icons-material/Storefront';
-import LogoutIcon from '@mui/icons-material/Logout';
 import axios from 'axios';
-import './Products.css';
-import ShopNavbar from './ShopNavbar'; // Assuming Navbar is correctly implemented
 import Billing from '../pages/Billing';
- 
+import Receipt from '../pages/Receipt';
+import { useNavigate } from 'react-router-dom';
+import './Products.css';
+
 const Products = () => {
     const [view, setView] = useState('shop');
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
     const [transactionMode, setTransactionMode] = useState('creditCard');
-    //addded
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [values, setValues] = useState({
         debitAccount: '',
         creditAccount: '',
         amount: ''
     });
- 
+    const [showReceipt, setShowReceipt] = useState(false);
+
+    const navigate = useNavigate();
+
     useEffect(() => {
         fetchProducts();
     }, []);
- 
+
     const fetchProducts = async () => {
         try {
             const routingNumber = "000000010";
             const response = await axios.get('http://localhost:3004/getallproducts');
             setProducts(response?.data?.data || []);
-            setValues((prev) => ({
-                ...prev,
-                creditAccount: routingNumber
-            }));
+            setValues((prev) => ({ ...prev, creditAccount: routingNumber }));
         } catch (error) {
             console.error('Error fetching products:', error);
         }
     };
- 
+
     const addToCart = (product) => {
         setCart((prevCart) => {
-            const existingProduct = prevCart.find(item => item._id === product._id);
-            if (existingProduct) {
-                if (existingProduct.quantity < product.stock) {
+            const existing = prevCart.find(item => item._id === product._id);
+            if (existing) {
+                if (existing.quantity < product.stock) {
                     return prevCart.map(item =>
                         item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
                     );
@@ -61,117 +58,85 @@ const Products = () => {
             }
         });
     };
- 
+
     const handleRemoveFromCart = (index) => {
         setCart((prevCart) => prevCart.filter((_, i) => i !== index));
     };
- 
+
     const getTotalPrice = () => {
-        return cart.reduce((total, product) => total + parseInt(product.price), 0);
+        return cart.reduce((total, item) => total + item.price * item.quantity, 0);
     };
- 
+
     const handleCheckout = () => {
         setView('billing');
     };
- 
-    const handleTransactionModeChange = (event) => {
-        setTransactionMode(event.target.value);
+
+    const handleTransactionModeChange = (e) => {
+        setTransactionMode(e.target.value);
     };
- 
+
     const handleBillingChange = (e) => {
         const { name, value } = e.target;
-        setValues((prev) => ({
-            ...prev,
-            [name]: value
-        }));
-        setValues((prev) => ({
-            ...prev,
-            amount: getTotalPrice()
-        }));
+        setValues((prev) => ({ ...prev, [name]: value, amount: getTotalPrice() }));
     };
- 
+
     const handleBillingSubmit = async () => {
         try {
-            const token = "$2b$10$81rZwhHngrfNMcTzlQO82OUELSPLpjD3ZWfc98HjWQ76uFDrOtIku";
-            const debit = values.debitAccount;
-            const credit = values.creditAccount;
-            const amount = getTotalPrice();
-            
-            // Removed Step 1: Transfer transaction
-    
-            // Step 2: Record transaction details and update reports
             for (const product of cart) {
-                // Record transaction detail
-                const transactionResponse = await axios.post('http://localhost:3004/api/salesdetails', {
+                await axios.post('http://localhost:3004/api/salesdetails', {
                     product: product.name,
-                    quantity: 1, // Assuming 1 for simplicity, adjust as needed
+                    quantity: product.quantity,
                     price: product.price,
                     date: new Date()
                 });
-    
-                if (!transactionResponse.data) {
-                    throw new Error('Failed to record transaction details');
-                }
-    
-                const productId = product._id; // assuming `_id` field exists in product
+
                 const updatedStock = product.stock - product.quantity;
-    
-                console.log(product.stock);
-                console.log("updated stock:" + updatedStock);
-    
-                const stockResponse = await axios.post('http://localhost:3004/editproductstock', {
-                    productId: productId,
+                await axios.post('http://localhost:3004/editproductstock', {
+                    productId: product._id,
                     productStock: updatedStock
                 });
-    
-                // Update the local state to reflect the updated stock
-                setProducts((prevProducts) =>
-                    prevProducts.map((p) =>
-                        p._id === productId ? { ...p, stock: updatedStock } : p
-                    )
+
+                setProducts((prev) =>
+                    prev.map((p) => p._id === product._id ? { ...p, stock: updatedStock } : p)
                 );
-    
-                // Update Reports model
-                const reportsResponse = await axios.get('http://localhost:3004/api/reportdetails');
-                const reports = reportsResponse.data.data;
-    
+
+                const reports = (await axios.get('http://localhost:3004/api/reportdetails')).data.data;
+
                 if (!Array.isArray(reports) || reports.length === 0) {
-                    // Create new report if none exists
                     await axios.post('http://localhost:3004/api/reportdetails', {
                         totalSales: product.price,
                         totalOrders: 1,
                         bestSeller: product.name
                     });
                 } else {
-                    // Update existing report
                     const update = reports[0];
                     update.totalSales += product.price;
                     update.totalOrders++;
                     await axios.put(`http://localhost:3004/api/reportdetails/${update._id}`, update);
                 }
             }
+            setShowReceipt(true); // Show receipt after successful payment
         } catch (error) {
-            console.error('Error submitting payment:', error);
+            console.error('Error submitting billing:', error);
         }
     };
-    
- 
+
     const categories = ['All', 'Anime', 'Action', 'Horror'];
- 
+
     const handleCategoryChange = (category) => {
         setSelectedCategory(category);
     };
- 
-    const filteredValues= selectedCategory === 'All' ? products : products.filter(product => product.category === selectedCategory);
+
+    const filteredValues = selectedCategory === 'All' ? products : products.filter(product => product.category === selectedCategory);
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userRole');
+        navigate('/Login');
+    };
 
     return (
         <div className="app-container">
-             <ShopNavbar />
-            <nav className="navbar">
-                {/* <Button onClick={() => setView('shop')} startIcon={<StorefrontIcon />} sx={{ color: 'black' }}>Shop</Button>
-                <Button onClick={() => setView('cart')} startIcon={<ShoppingCartIcon />} sx={{ color: 'black' }}>Cart ({cart.length})</Button> */}
-
-            </nav>
 
             <div className="category-list">
                 {categories.map(category => (
@@ -190,34 +155,49 @@ const Products = () => {
                 <div className="shop-container">
                     <h2>Books</h2>
                     <div className="products-list">
-                        {filteredValues.map((product) => (
+                        {filteredValues.map(product => (
                             <div key={product._id} className="product-card">
                                 <img src={`http://localhost:3004/uploads/${product.image}`} alt={product.name} />
                                 <h3>{product.name}</h3>
                                 <p>{product.description}</p>
-                                {/* <h4>₱ {product.price}</h4> */}
-                                {/* <h4>Stock:  {product.stock}</h4> */}
-                                {/* <Button
-                                variant="contained"
-                                onClick={() => addToCart(product)}
-                                disabled={product.stock === 0}
-                            >
-                                {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
-                            </Button> */}
-
+                                <h4>₱ {product.price}</h4>
+                                <h4>Stock: {product.stock}</h4>
+                                <Button
+                                    variant="contained"
+                                    onClick={() => {
+                                        if (localStorage.getItem('token')) {
+                                            addToCart(product);
+                                        } else {
+                                            navigate('/Login');
+                                        }
+                                    }}
+                                    disabled={product.stock === 0}
+                                >
+                                    {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+                                </Button>
                             </div>
                         ))}
                     </div>
+                    {/* View Cart button */}
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => setView('cart')}
+                        disabled={cart.length === 0}
+                        style={{ marginTop: '20px' }}
+                    >
+                        View Cart ({cart.length})
+                    </Button>
                 </div>
             )}
 
-{view === 'cart' && (
+            {view === 'cart' && (
                 <div className="cart-container">
                     <h2>Cart</h2>
-                    {cart.map((product, index) => (
+                    {cart.map((item, index) => (
                         <div key={index} className="cart-item">
-                            <h3>{product.name}</h3>
-                            <p>₱ {product.price} x {product.quantity}</p>
+                            <h3>{item.name}</h3>
+                            <p>₱ {item.price} x {item.quantity}</p>
                             <Button variant="contained" onClick={() => handleRemoveFromCart(index)}>Remove</Button>
                         </div>
                     ))}
@@ -226,7 +206,7 @@ const Products = () => {
                 </div>
             )}
 
-            {view === 'billing' && (
+            {view === 'billing' && !showReceipt && (
                 <Billing
                     cart={cart}
                     transactionMode={transactionMode}
@@ -236,6 +216,28 @@ const Products = () => {
                     handleBillingSubmit={handleBillingSubmit}
                     getTotalPrice={getTotalPrice}
                 />
+            )}
+
+            {showReceipt && (
+                <Receipt
+                    cart={cart}
+                    billingDetails={values}
+                    transactionMode={transactionMode}
+                    total={getTotalPrice()}
+                    onClose={() => {
+                        setShowReceipt(false);
+                        setCart([]);
+                        if (localStorage.getItem('userRole') === 'buyer') {
+                            navigate('/dashboard');
+                        } else {
+                            navigate('/Login');
+                        }
+                    }}
+                />
+            )}
+            {/* Only show logout if logged in */}
+            {localStorage.getItem('token') && (
+                <Button variant="contained" onClick={handleLogout}>Logout</Button>
             )}
         </div>
     );

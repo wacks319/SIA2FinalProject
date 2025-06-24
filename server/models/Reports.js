@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
- 
+
 const reportSchema = new mongoose.Schema({
   totalSales: {
     type: Number,
@@ -19,7 +19,7 @@ const reportSchema = new mongoose.Schema({
 }, {
   timestamps: true // Adds createdAt and updatedAt fields
 });
- 
+
 const Report = mongoose.model('Report', reportSchema);
- 
+
 module.exports = Report;

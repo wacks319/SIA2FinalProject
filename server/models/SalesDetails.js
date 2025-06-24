@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
- 
+
 const salesDetailSchema = new mongoose.Schema({
   product: {
     type: String,
@@ -22,7 +22,7 @@ const salesDetailSchema = new mongoose.Schema({
 }, {
   timestamps: true // Adds createdAt and updatedAt fields
 });
- 
+
 const SalesDetail = mongoose.model('SalesDetail', salesDetailSchema);
- 
+
 module.exports = SalesDetail;

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
- 
+
 const userSchema = new Schema({
   username: {
     type: String,
@@ -22,7 +22,7 @@ const userSchema = new Schema({
   },
   userRole: {
     type: String,
-    enum: ['user', 'admin', 'inventory'], // Example roles, adjust as per your application needs
+    enum: ['buyer', 'user', 'admin', 'inventory', 'seller'], // add 'buyer' to allowed values
     default: 'user'
   },
   createdAt: {
@@ -34,13 +34,13 @@ const userSchema = new Schema({
     default: Date.now
   }
 });
- 
+
 // Middleware to update the updatedAt field before saving
-userSchema.pre('save', function(next) {
+userSchema.pre('save', function (next) {
   this.updatedAt = Date.now();
   next();
 });
- 
+
 const User = mongoose.model('User', userSchema);
- 
+
 module.exports = User;

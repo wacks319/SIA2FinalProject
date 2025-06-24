@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './ManageAccount.css';
 import axios from 'axios';
@@ -7,7 +7,7 @@ import { IconButton, Modal, Box, TextField, Button, Select, MenuItem, InputLabel
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Register from './Register';
- 
+
 function ManageAccount() {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -15,11 +15,11 @@ function ManageAccount() {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
- 
+
   useEffect(() => {
     fetchUsers();
   }, []);
- 
+
   const fetchUsers = async () => {
     try {
       const response = await axios.get('http://localhost:3004/api/users');
@@ -28,7 +28,7 @@ function ManageAccount() {
       console.error('Error fetching users:', error);
     }
   };
- 
+
   const deleteUser = async (userId) => {
     try {
       await axios.delete(`http://localhost:3004/api/users/${userId}`);
@@ -41,17 +41,17 @@ function ManageAccount() {
       alert('Error deleting user');
     }
   };
- 
+
   const handleEditClick = (user) => {
     setSelectedUser(user);
     setIsEditModalOpen(true);
   };
- 
+
   const handleEditModalClose = () => {
     setIsEditModalOpen(false);
     setSelectedUser(null);
   };
- 
+
   const handleEditUser = async () => {
     try {
       console.log('Selected user before update:', selectedUser);
@@ -65,28 +65,28 @@ function ManageAccount() {
       alert('Error updating user');
     }
   };
- 
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setSelectedUser({ ...selectedUser, [name]: value });
   };
- 
+
   const handleRoleChange = (e) => {
     setSelectedUser({ ...selectedUser, userRole: e.target.value });
   };
- 
+
   const handleRegisterModalOpen = () => {
     setIsRegisterModalOpen(true);
   };
- 
+
   const handleRegisterModalClose = () => {
     setIsRegisterModalOpen(false);
   };
- 
+
   const filteredUsers = users.filter(user =>
     user.username.toLowerCase().includes(searchQuery.toLowerCase())
   );
- 
+
   return (
     <div className="manage-account-container">
       <div className="sidebar">
@@ -102,13 +102,13 @@ function ManageAccount() {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="search-field"
           />
-          <br/>
-          <br/>
+          <br />
+          <br />
           <Button variant="contained" color="primary" onClick={handleRegisterModalOpen}>
             Add User
           </Button>
         </div>
-        <br/>
+        <br />
         <table className="user-table">
           <thead>
             <tr>
@@ -137,7 +137,7 @@ function ManageAccount() {
           </tbody>
         </table>
       </div>
- 
+
       <Modal open={isEditModalOpen} onClose={handleEditModalClose}>
         <Box sx={{ ...modalStyle }}>
           <h2>Edit User</h2>
@@ -178,7 +178,7 @@ function ManageAccount() {
           </Button>
         </Box>
       </Modal>
- 
+
       <Modal open={isRegisterModalOpen} onClose={handleRegisterModalClose}>
         <Box sx={{ ...modalStyle }}>
           <Register closeModal={handleRegisterModalClose} />
@@ -187,7 +187,7 @@ function ManageAccount() {
     </div>
   );
 }
- 
+
 const modalStyle = {
   position: 'absolute',
   top: '50%',
@@ -198,5 +198,5 @@ const modalStyle = {
   boxShadow: 24,
   p: 4,
 };
- 
+
 export default ManageAccount;

@@ -1,13 +1,48 @@
-/* Billing.css */
+/* Billing.css - Book Seller Theme */
 
-/* Styling for the submit payment button */
+.billing-container {
+    background: #fffbe7;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    padding: 32px 24px;
+    margin: 0 auto 32px auto;
+    max-width: 500px;
+    font-family: 'Merriweather', serif;
+}
+
+.billing-container h2 {
+    color: #4b2e05;
+    font-family: 'Merriweather', serif;
+}
+
 .billing-container .MuiButton-containedPrimary {
-    background-color: black; /* Set button background color to black */
-    color: white; /* Set text color to white */
+    background-color: #4b2e05;
+    color: white;
+    font-family: 'Merriweather', serif;
+    font-size: 1rem;
+    border-radius: 6px;
 }
 
 /* Hover effect for the submit payment button */
 .billing-container .MuiButton-containedPrimary:hover {
-    background-color: #444; /* Dark gray background color on hover */
+    background-color: #b8860b;
+    /* Dark gray background color on hover */
 }
 
+.billing-container .MuiTextField-root {
+    margin-bottom: 16px;
+}
+
+/* Payment radio buttons */
+.billing-container .MuiFormControlLabel-root {
+    color: #7c5e2a;
+    font-family: 'Merriweather', serif;
+}
+
+.billing-container .MuiRadio-root {
+    color: #b8860b;
+}
+
+.billing-container .MuiRadio-root.Mui-checked {
+    color: #4b2e05;
+}

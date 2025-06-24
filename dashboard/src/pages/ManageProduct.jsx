@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
     Button,
@@ -24,13 +24,17 @@ const ManageProduct = () => {
         productImage: null,
         productCategory: '',
         productImageUrl: '',
+        price: '',
+        stock: ''
     });
     const [selectedProduct, setSelectedProduct] = useState({
         _id: '',
         productName: '',
         productDescription: '',
         productCategory: '',
-        image: null
+        image: null,
+        price: '',
+        stock: ''
     });
     const [modalAddOpen, setModalAddOpen] = useState(false);
     const [modalEditOpen, setModalEditOpen] = useState(false);
@@ -63,7 +67,9 @@ const ManageProduct = () => {
             productName: product?.name,
             productDescription: product?.description,
             productCategory: product?.category,
-            image: product?.image
+            image: product?.image,
+            price: product?.price,
+            stock: product?.stock
         });
         setModalEditOpen(true);
     };
@@ -75,7 +81,9 @@ const ManageProduct = () => {
             productName: '',
             productDescription: '',
             productCategory: '',
-            image: null
+            image: null,
+            price: '',
+            stock: ''
         });
     };
 
@@ -105,40 +113,47 @@ const ManageProduct = () => {
             productDescription: '',
             productImageUrl: '',
             productImage: null,
-            productCategory: ''
+            productCategory: '',
+            price: '',
+            stock: ''
         });
     };
 
     const handleAddProduct = async () => {
         try {
-            const { productName, productDescription, productImage, productCategory } = products;
-
-            if (!productName || !productDescription || !productImage || !productCategory) {
-                return alert('Fields must not be empty!');
+            const { name, description, productImage, productCategory, price, stock } = products;
+            if (!name || !description || !productImage || !productCategory || price === '' || stock === '') {
+                return alert('All fields must not be empty!');
             }
-
             const formData = new FormData();
-            formData.append('productName', productName);
-            formData.append('productDescription', productDescription);
+            formData.append('name', name);
+            formData.append('description', description);
             formData.append('image', productImage);
             formData.append('category', productCategory);
-
+            formData.append('price', price.toString());
+            formData.append('stock', stock.toString());
+            for (let pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+            }
             await axios.post('http://localhost:3004/addproduct', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-
             setProducts({
                 productName: '',
                 productDescription: '',
                 productImageUrl: '',
                 productImage: null,
-                productCategory: ''
+                productCategory: '',
+                price: '',
+                stock: '',
+                name: '',
+                description: ''
             });
             fetchMenu();
         } catch (error) {
-            alert('Error adding product!', error);
+            alert('Error adding product! ' + (error?.response?.data?.message || error.message || error));
         } finally {
             setModalAddOpen(false);
         }
@@ -164,7 +179,7 @@ const ManageProduct = () => {
 
     const handleUpdateProduct = async () => {
         try {
-            const { _id, productName, productDescription, productCategory } = selectedProduct;
+            const { _id, productName, productDescription, productCategory, price, stock } = selectedProduct;
 
             if (!_id || !productName || !productDescription || !productCategory) {
                 return alert('Fields must not be empty!');
@@ -174,7 +189,9 @@ const ManageProduct = () => {
                 productId: _id,
                 productName,
                 productDescription,
-                category: productCategory
+                category: productCategory,
+                price,
+                stock
             };
 
             const response = await axios.post('http://localhost:3004/editproduct', data, {
@@ -256,16 +273,16 @@ const ManageProduct = () => {
                             )}
                         </div>
                         <TextField
-                            name="productName"
+                            name="name"
                             label="Title"
                             value={products.productName}
-                            onChange={handleOnChange}
+                            onChange={e => setProducts(prev => ({ ...prev, productName: e.target.value, name: e.target.value }))}
                         />
                         <TextField
-                            name="productDescription"
+                            name="description"
                             label="Description"
                             value={products.productDescription}
-                            onChange={handleOnChange}
+                            onChange={e => setProducts(prev => ({ ...prev, productDescription: e.target.value, description: e.target.value }))}
                         />
                         <FormControl fullWidth>
                             <InputLabel>Category</InputLabel>
@@ -279,6 +296,20 @@ const ManageProduct = () => {
                                 ))}
                             </Select>
                         </FormControl>
+                        <TextField
+                            name="price"
+                            label="Price"
+                            type="number"
+                            value={products.price}
+                            onChange={handleOnChange}
+                        />
+                        <TextField
+                            name="stock"
+                            label="Stock"
+                            type="number"
+                            value={products.stock}
+                            onChange={handleOnChange}
+                        />
                         <input
                             name="productImage"
                             type="file"
@@ -330,6 +361,20 @@ const ManageProduct = () => {
                                     ))}
                                 </Select>
                             </FormControl>
+                            <TextField
+                                name="price"
+                                label="Price"
+                                type="number"
+                                value={selectedProduct.price}
+                                onChange={handleEditChange}
+                            />
+                            <TextField
+                                name="stock"
+                                label="Stock"
+                                type="number"
+                                value={selectedProduct.stock}
+                                onChange={handleEditChange}
+                            />
                             <div className='btn-add'>
                                 <Button variant="contained" onClick={handleUpdateProduct}>Save Changes</Button>
                                 <Button variant="contained" onClick={handleDeleteProduct} startIcon={<DeleteIcon />}>Delete</Button>

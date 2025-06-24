@@ -15,10 +15,10 @@ const productSchema = new mongoose.Schema({
         required: true
     },
 
-    // price: {
-    //     type: String,
-    //     required: true
-    // },
+    price: {
+        type: String,
+        required: true
+    },
 
     category: {
         type: String,
@@ -30,10 +30,10 @@ const productSchema = new mongoose.Schema({
         required: true
     },
 
-    // stock: {
-    //     type: Number,
-    //     required: false
-    // }
+    stock: {
+        type: Number,
+        required: false
+    }
 });
 
 module.exports = mongoose.model('Products', productSchema);

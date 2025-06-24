@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import InputAdornment from '@mui/material/InputAdornment';
+import {
+  TextField,
+  Button,
+  Modal,
+  InputAdornment,
+  FormControlLabel,
+  Checkbox
+} from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Lock from '@mui/icons-material/Lock';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import axios from 'axios';
 import './Login.css';
-
-import loginImage from '../../public/logo.jpg'; // Adjust the path as necessary
+import loginImage from '../../public/logo.jpg'; // Adjust path as necessary
 
 function Login() {
   const [ModalStudOpen, setModalStudOpen] = useState(true);
@@ -29,36 +30,47 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      console.log('Sending loginID:', loginID);
-      console.log('Sending password:', password);
 
-      const response = await axios.post('http://localhost:3004/api/login', { loginID, password });
+    // Hardcoded admin and seller logins
+    const adminEmail = 'admin@system.com';
+    const adminPassword = 'admin123';
+    const sellerEmail = 'seller@system.com';
+    const sellerPassword = 'seller123';
+
+    if (loginID === adminEmail && password === adminPassword) {
+      localStorage.setItem('token', 'dummy_admin_token');
+      localStorage.setItem('userRole', 'admin');
+      navigate('/ManageProduct');
+      return;
+    }
+
+    if (loginID === sellerEmail && password === sellerPassword) {
+      localStorage.setItem('token', 'dummy_seller_token');
+      localStorage.setItem('userRole', 'seller');
+      navigate('/dashboard');
+      return;
+    }
+
+    // Buyer login via backend
+    try {
+      const response = await axios.post('http://localhost:3004/api/login', {
+        loginID,
+        password
+      });
       const { token, userRole } = response.data;
       localStorage.setItem('token', token);
       localStorage.setItem('userRole', userRole);
 
-      // Redirection based on userRole
-      if (userRole === 'admin') {
-        navigate('/ManageProduct');
-      } else if (userRole === 'user') {
+      if (userRole === 'buyer' || userRole === 'user') {
         navigate('/Products');
-      } else if (userRole === 'inventory') {
-        navigate('/InventoryDashboard');
       } else {
-        navigate('Unknown user role:', userRole);
+        navigate('/');
       }
     } catch (err) {
-      console.error('Error during login:', err);
-      if (err.response) {
-        console.error(err.response.data);
-        if (err.response.status === 400) {
-          setLoginIDError('Invalid login ID or password');
-          setPasswordError('Invalid login ID or password');
-        } else {
-          setLoginIDError('An error occurred');
-          setPasswordError('An error occurred');
-        }
+      console.error('Login error:', err);
+      if (err.response && err.response.status === 400) {
+        setLoginIDError('Invalid login ID or password');
+        setPasswordError('Invalid login ID or password');
       } else {
         setLoginIDError('An error occurred');
         setPasswordError('An error occurred');
@@ -67,7 +79,7 @@ function Login() {
   };
 
   const handleRegisterClick = () => {
-    navigate('/register'); // Navigate to Register page
+    navigate('/register');
   };
 
   return (
@@ -75,13 +87,8 @@ function Login() {
       <div className="login-modal">
         <div className="main-login-form">
           <div className="login-form">
-            <img src={loginImage} alt="Login Image" className="login-image" /> {/* Use the image here */}
+            <img src={loginImage} alt="Login" className="login-image" />
             <h1>Login</h1>
-            <div className="example-credentials">
-              <p><strong>admin</strong> password: admin</p>
-              {/* <p><strong>staff</strong> password: staff</p> */}
-              <p><strong>user</strong> password: user</p>
-            </div>
             <div className="login-forms">
               <TextField
                 value={loginID}
@@ -89,19 +96,19 @@ function Login() {
                   setLoginID(e.target.value);
                   setLoginIDError('');
                 }}
-                id="outlined-basic-1"
+                id="outlined-login-id"
                 label="Email or Username"
                 variant="outlined"
                 required
                 error={!!loginIDErr}
-                helperText={loginIDErr ? loginIDErr : ''}
+                helperText={loginIDErr}
                 fullWidth
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
                       <AccountCircle />
                     </InputAdornment>
-                  ),
+                  )
                 }}
               />
               <TextField
@@ -110,22 +117,23 @@ function Login() {
                   setPassword(e.target.value);
                   setPasswordError('');
                 }}
-                id="outlined-basic-2"
+                id="outlined-password"
                 label="Password"
                 variant="outlined"
                 type={showPassword ? 'text' : 'password'}
                 required
                 error={!!passwordError}
-                helperText={passwordError ? passwordError : ''}
+                helperText={passwordError}
                 fullWidth
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
                       <Lock />
                     </InputAdornment>
-                  ),
+                  )
                 }}
               />
+
               <FormControlLabel
                 control={
                   <Checkbox
@@ -153,14 +161,17 @@ function Login() {
                 Cancel
               </Button>
 
-              <Button
-                variant="outlined"
-                onClick={handleRegisterClick}
-                className="login-button register"
-                style={{ borderColor: 'black', color: 'black', height: '56px' }}
-              >
-                Register
-              </Button>
+              {/* Register button only shown for non-admin/non-seller */}
+              {loginID !== 'admin@system.com' && loginID !== 'seller@system.com' && (
+                <Button
+                  variant="outlined"
+                  onClick={handleRegisterClick}
+                  className="login-button register"
+                  style={{ borderColor: 'black', color: 'black', height: '56px' }}
+                >
+                  Register
+                </Button>
+              )}
             </div>
           </div>
         </div>
