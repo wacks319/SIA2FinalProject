@@ -50,7 +50,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const ConnectToDatabase = async () => {
     try {
-        await mongoose.connect("mongodb://localhost:27017/finalsia102")
+        await mongoose.connect("mongodb+srv://finalsia102:cwP3NuzA2cE6oYdc@ryan.vsinll7.mongodb.net/")
         console.log('Connected to the database!')
     } catch (error) {
         console.error('MongoDB connection failed:', error.message);
