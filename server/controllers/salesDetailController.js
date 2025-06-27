@@ -3,13 +3,15 @@ const SalesDetail = require('../models/SalesDetails');
 // Create a new sales detail
 const createSalesDetail = async (req, res) => {
   try {
-    const { product, quantity, price, date } = req.body;
+    const { product, productId, quantity, price, date, buyer } = req.body;
 
     const newSalesDetail = new SalesDetail({
       product,
+      productId,
       quantity,
       price,
-      date
+      date,
+      buyer
     });
 
     const savedSalesDetail = await newSalesDetail.save();

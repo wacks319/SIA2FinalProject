@@ -69,7 +69,8 @@ body {
     margin-top: 10px;
     width: 100%;
     height: 56px;
-    transition: background-color 0.3s ease; /* Smooth transition */
+    transition: background-color 0.3s ease;
+    /* Smooth transition */
 }
 
 .login-forms .login-button:hover {
@@ -77,15 +78,18 @@ body {
 }
 
 .login-forms .login-button.sign-in:hover {
-    background-color: #ccc; /* Gray on hover */
+    background-color: #ccc;
+    /* Gray on hover */
 }
 
 .login-forms .login-button.cancel:hover {
-    background-color: #f44336; /* Red on hover */
+    background-color: #f44336;
+    /* Red on hover */
 }
 
 .login-forms .login-button.register:hover {
-    background-color: #ccc; /* Black on hover */
+    background-color: #ccc;
+    /* Black on hover */
 }
 
 h1 {

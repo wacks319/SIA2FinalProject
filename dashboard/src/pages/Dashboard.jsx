@@ -66,6 +66,11 @@ function Dashboard({ user }) {
   return (
     <div className="dashboard">
       <Navbar />
+      {user.role === 'buyer' && (
+        <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '16px 0' }}>
+          {/* Removed Dashboard button for buyer */}
+        </div>
+      )}
 
       <div className="image-section">
         <Slider {...settings}>

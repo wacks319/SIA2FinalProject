@@ -4,6 +4,8 @@ import CardActionArea from '@mui/material/CardActionArea';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 import './ShoppingList.css';
 import Navbar from './Navbar';
 
@@ -39,6 +41,7 @@ const items = [
 ];
 
 function ShoppingList() {
+  const navigate = useNavigate();
   return (
     <div className="container">
       <Navbar />
@@ -73,6 +76,11 @@ function ShoppingList() {
           </Grid>
         ))}
       </Grid>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: 32 }}>
+        <Button variant="outlined" style={{ background: '#fff', color: '#b8860b', border: '1.5px solid #b8860b' }} onClick={() => navigate('/dashboard')}>
+          Cancel
+        </Button>
+      </div>
     </div>
   );
 }

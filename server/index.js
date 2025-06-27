@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -50,7 +51,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const ConnectToDatabase = async () => {
     try {
-        await mongoose.connect("mongodb+srv://finalsia102:cwP3NuzA2cE6oYdc@ryan.vsinll7.mongodb.net/")
+        await mongoose.connect(process.env.MONGODB_URI);
         console.log('Connected to the database!')
     } catch (error) {
         console.error('MongoDB connection failed:', error.message);
@@ -131,17 +132,32 @@ app.post('/deleteproduct', async (req, res) => {
 
 app.post('/editproduct', async (req, res) => {
     try {
-        const { productId, productName, productDescription, productPrice, category, productStock } = req.body;
+        // Accept both old and new field names for compatibility
+        const {
+            productId,
+            productName,
+            productDescription,
+            productPrice,
+            category,
+            productStock,
+            price,
+            stock
+        } = req.body;
 
-        console.log('Received data for updating product:', productId, productName, productDescription, productPrice);
+        // Use new values if provided, else fallback to old
+        const updateFields = {
+            ...(productName && { name: productName }),
+            ...(productDescription && { description: productDescription }),
+            ...(category && { category }),
+            // Accept either productPrice or price
+            ...(productPrice !== undefined ? { price: productPrice } : {}),
+            ...(price !== undefined ? { price } : {}),
+            // Accept either productStock or stock
+            ...(productStock !== undefined ? { stock: productStock } : {}),
+            ...(stock !== undefined ? { stock } : {})
+        };
 
-        const updatedProduct = await Products.findByIdAndUpdate(productId, {
-            name: productName,
-            description: productDescription,
-            category: category,
-            price: productPrice,
-            stock: productStock
-        }, { new: true });
+        const updatedProduct = await Products.findByIdAndUpdate(productId, updateFields, { new: true });
 
         if (updatedProduct) {
             res.json({ success: true, message: 'Product updated successfully!', data: updatedProduct });

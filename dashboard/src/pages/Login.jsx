@@ -57,12 +57,13 @@ function Login() {
         loginID,
         password
       });
-      const { token, userRole } = response.data;
+      const { token, userRole, username } = response.data;
       localStorage.setItem('token', token);
       localStorage.setItem('userRole', userRole);
+      localStorage.setItem('username', username);
 
       if (userRole === 'buyer' || userRole === 'user') {
-        navigate('/Products');
+        navigate('/dashboard');
       } else {
         navigate('/');
       }

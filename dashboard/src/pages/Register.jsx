@@ -29,7 +29,7 @@ const Register = () => {
       alert('Registration successful!');
       setFormData({ username: '', email: '', password: '', role: 'buyer' });
       setErrors({});
-      window.location.href = '/Login'; // redirect to login
+      // Do not redirect to login, just clear form and stay on page
     } catch (error) {
       let msg = 'Registration failed!';
       if (error.response && error.response.data && error.response.data.message) {

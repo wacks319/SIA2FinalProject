@@ -14,15 +14,13 @@ function Navbar() {
     const token = localStorage.getItem('token');
     setIsLoggedIn(!!token);
     setUserRole(localStorage.getItem('userRole'));
-  }, []);
+  }, [isLoggedIn, userRole]);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userRole');
+    localStorage.clear(); // Remove all user data
     setIsLoggedIn(false);
     setUserRole('');
-    navigate('/');
-    window.location.reload();
+    navigate('/dashboard'); // Go to dashboard for all users (not logged in)
   };
 
   const handleCartOpen = () => setCartOpen(true);
@@ -42,6 +40,9 @@ function Navbar() {
 
         {isLoggedIn && (userRole === 'admin' || userRole === 'seller') && (
           <Link to="/ManageProduct" className="navbar-link">Manage Product</Link>
+        )}
+        {isLoggedIn && userRole === 'seller' && (
+          <Link to="/ViewSales" className="navbar-link">View Sales</Link>
         )}
         {isLoggedIn && userRole === 'admin' && (
           <Link to="/ManageAccount" className="navbar-link">Manage Account</Link>

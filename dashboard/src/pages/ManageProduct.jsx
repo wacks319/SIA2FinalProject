@@ -189,9 +189,9 @@ const ManageProduct = () => {
                 productId: _id,
                 productName,
                 productDescription,
-                category: productCategory,
-                price,
-                stock
+                price, // send price
+                stock, // send stock
+                category: productCategory
             };
 
             const response = await axios.post('http://localhost:3004/editproduct', data, {
@@ -225,9 +225,16 @@ const ManageProduct = () => {
                     <DashboardIcon sx={{ marginRight: '10px' }} />
                     Manage Books
                 </Link>
-                <Link to="/ManageAccount" className="sidebar-link">
-                    <AccountBoxIcon sx={{ marginRight: '10px' }} />
-                    Manage Account
+                {/* Only show Manage Account for admin */}
+                {localStorage.getItem('userRole') === 'admin' && (
+                    <Link to="/ManageAccount" className="sidebar-link">
+                        <AccountBoxIcon sx={{ marginRight: '10px' }} />
+                        Manage Account
+                    </Link>
+                )}
+                <Link to="/ViewSales" className="sidebar-link">
+                    <DashboardIcon sx={{ marginRight: '10px' }} />
+                    View Sales
                 </Link>
                 {/* <Link to="/BackupandRestore" className="sidebar-link sidebar-link">
                     <ExitToAppIcon sx={{ marginRight: '10px' }} />

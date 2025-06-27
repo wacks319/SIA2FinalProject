@@ -5,6 +5,10 @@ const salesDetailSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  productId: {
+    type: String,
+    required: false
+  },
   quantity: {
     type: Number,
     required: true
@@ -18,7 +22,10 @@ const salesDetailSchema = new mongoose.Schema({
     required: true,
     default: Date.now
   },
-  // You can add additional fields if needed
+  buyer: {
+    type: String,
+    required: false
+  },
 }, {
   timestamps: true // Adds createdAt and updatedAt fields
 });

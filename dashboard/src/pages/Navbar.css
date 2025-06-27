@@ -2,26 +2,34 @@
   background-color: rgb(255, 255, 255);
   overflow: hidden;
   position: sticky;
-  height: 100px; /* Height of the navbar */
+  height: 100px;
+  /* Height of the navbar */
   top: 0;
   width: 100%;
   z-index: 1000;
   display: flex;
-  align-items: center; /* Vertically center content */
-  justify-content: space-between; /* Space out items */
+  align-items: center;
+  /* Vertically center content */
+  justify-content: space-between;
+  /* Space out items */
   padding: 0 20px;
 }
 
 .logo-img {
   display: flex;
-  align-items: center; /* Center the logo vertically */
-  max-height: 100%; /* Prevent logo from exceeding navbar height */
+  align-items: center;
+  /* Center the logo vertically */
+  max-height: 100%;
+  /* Prevent logo from exceeding navbar height */
 }
 
 .logo-img img {
-  max-height: 200px; /* Ensure the logo fits within the navbar height */
-  width: auto; /* Maintain aspect ratio */
-  padding: 10px; /* Add inner spacing */
+  max-height: 200px;
+  /* Ensure the logo fits within the navbar height */
+  width: auto;
+  /* Maintain aspect ratio */
+  padding: 10px;
+  /* Add inner spacing */
 }
 
 .navbar-links {
@@ -46,12 +54,15 @@
 
 @media (max-width: 768px) {
   .navbar {
-    flex-wrap: wrap; /* Allow the navbar to wrap on smaller screens */
-    height: auto; /* Allow dynamic height */
+    flex-wrap: wrap;
+    /* Allow the navbar to wrap on smaller screens */
+    height: auto;
+    /* Allow dynamic height */
   }
 
   .logo-img img {
-    max-height: 60px; /* Reduce logo size for smaller screens */
+    max-height: 60px;
+    /* Reduce logo size for smaller screens */
   }
 
   .navbar-links {

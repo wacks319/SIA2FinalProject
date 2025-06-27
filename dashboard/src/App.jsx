@@ -12,6 +12,8 @@ import InventoryReport from './pages/InventoryReport';
 import ShoppingList from './pages/ShoppingList';
 import BackupAndRestore from './pages/BackupAndRestore';
 import ProtectedRoute from './components/ProtectedRoute';
+import Receipt from './pages/Receipt';
+import ViewSales from './pages/ViewSales';
 import './App.css';
 
 function App() {
@@ -46,7 +48,13 @@ function App() {
         <Route path="/InventoryReport" element={<InventoryReport />} />
         <Route path="/ShoppingList" element={<ShoppingList />} />
         <Route path="/BackupAndRestore" element={<BackupAndRestore />} />
+        <Route path="/receipt" element={<Receipt />} />
         <Route path="/dashboard" element={<Dashboard user={user} />} />
+        <Route path="/ViewSales" element={
+          <ProtectedRoute allowedRoles={['seller', 'admin']}>
+            <ViewSales />
+          </ProtectedRoute>
+        } />
       </Routes>
     </BrowserRouter>
   );
