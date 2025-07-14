@@ -7,6 +7,7 @@ const path = require('path');
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const app = express();
+//test
 
 const PORT = process.env.PORT || 3004;
 const HOST = 'localhost'
