@@ -10,7 +10,7 @@ const os = require('os');
 const app = express();
 
 // const PORT = process.env.PORT || 3004;
-const HOST = 'localhost'
+const HOST = '192.168.9.74'
 
 const adminModel = require('./models/adminData.js');
 const Products = require('./models/productModel.js');
@@ -70,7 +70,7 @@ function getLocalIP() {
          } 
         } 
     } 
-     return "localhost";
+     return "192.168.9.74";
      } 
      // Start server 
 const PORT = process.env.PORT || 3004; 

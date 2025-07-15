@@ -76,24 +76,31 @@ function Navbar({ cart = [], onRemoveFromCart = () => {}, scrollToImageSection }
             placeholder="Search books or authors..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            sx={{ background: '#f1f1f1', borderRadius: 2, padding: '2px 10px', width: 220 }}
+            sx={{ background: '#f1f1f1', borderRadius: 2, padding: '2px 10px', width: 220, fontSize: '16px' }}
           />
         </form>
       </div>
 
       {/* Right: Nav Links + Cart & Profile */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-        <Link to="/" className="navbar-link" style={{ color: 'white', fontWeight: 'bold' }} onClick={e => {
-          e.preventDefault();
-          navigate('/');
-          if (typeof scrollToImageSection === 'function') {
-            setTimeout(() => scrollToImageSection(), 100);
-          }
-        }}>Home</Link>
         <Link
           to="/"
           className="navbar-link"
-          style={{ color: 'white', fontWeight: 'bold' }}
+          style={{ color: 'white', fontWeight: 'bold', fontSize: '16px' }}
+          onClick={e => {
+            e.preventDefault();
+            navigate('/');
+            if (typeof scrollToImageSection === 'function') {
+              setTimeout(() => scrollToImageSection(), 100);
+            }
+          }}
+        >
+          Home
+        </Link>
+        <Link
+          to="/"
+          className="navbar-link"
+          style={{ color: 'white', fontWeight: 'bold', fontSize: '16px' }}
           onClick={e => {
             e.preventDefault();
             navigate('/');
@@ -105,12 +112,14 @@ function Navbar({ cart = [], onRemoveFromCart = () => {}, scrollToImageSection }
         >
           Books
         </Link>
-        <IconButton onClick={handleGenreClick} sx={{ color: 'white', fontWeight: 'bold' }}>
+        <IconButton onClick={handleGenreClick} sx={{ color: 'white', fontWeight: 'bold', fontSize: '16px' }}>
           Categories <ExpandMore />
         </IconButton>
         <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleGenreClose}>
           {genres.map((genre) => (
-            <MenuItem key={genre} onClick={handleGenreClose}>{genre}</MenuItem>
+            <MenuItem key={genre} onClick={handleGenreClose} sx={{ fontSize: '16px' }}>
+              {genre}
+            </MenuItem>
           ))}
         </Menu>
         <IconButton sx={{ color: 'white' }} onClick={handleCartOpen} title="Cart">
@@ -118,6 +127,7 @@ function Navbar({ cart = [], onRemoveFromCart = () => {}, scrollToImageSection }
             <ShoppingCart />
           </Badge>
         </IconButton>
+
         {/* Profile/Account Icon */}
         {isLoggedIn ? (
           <IconButton
@@ -137,11 +147,18 @@ function Navbar({ cart = [], onRemoveFromCart = () => {}, scrollToImageSection }
             <Person />
           </IconButton>
         )}
+
         {/* Account Dropdown Menu */}
         <Menu anchorEl={settingsAnchorEl} open={Boolean(settingsAnchorEl)} onClose={handleSettingsClose}>
-          <MenuItem onClick={handleSettingsClose} component={Link} to="/profile">Profile</MenuItem>
-          <MenuItem onClick={handleSettingsClose} component={Link} to="/settings">Settings</MenuItem>
-          <MenuItem onClick={() => { handleSettingsClose(); handleLogout(); }}>Logout</MenuItem>
+          <MenuItem onClick={handleSettingsClose} component={Link} to="/profile" sx={{ fontSize: '16px' }}>
+            Profile
+          </MenuItem>
+          <MenuItem onClick={handleSettingsClose} component={Link} to="/settings" sx={{ fontSize: '16px' }}>
+            Settings
+          </MenuItem>
+          <MenuItem onClick={() => { handleSettingsClose(); handleLogout(); }} sx={{ fontSize: '16px' }}>
+            Logout
+          </MenuItem>
         </Menu>
       </div>
 
@@ -197,11 +214,16 @@ function Navbar({ cart = [], onRemoveFromCart = () => {}, scrollToImageSection }
               <Typography fontWeight={600} mb={1}>
                 Total: ₱{totalPrice}
               </Typography>
-              <Button variant="contained" color="primary" fullWidth onClick={() => {
-                if (cart.length === 0) return;
-                handleCartClose();
-                navigate('/billing');
-              }}>
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={() => {
+                  if (cart.length === 0) return;
+                  handleCartClose();
+                  navigate('/billing');
+                }}
+              >
                 Checkout
               </Button>
             </>
@@ -210,7 +232,12 @@ function Navbar({ cart = [], onRemoveFromCart = () => {}, scrollToImageSection }
       </Modal>
 
       {/* Logout Snackbar */}
-      <Snackbar open={logoutMsgOpen} autoHideDuration={3000} onClose={() => setLogoutMsgOpen(false)} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+      <Snackbar
+        open={logoutMsgOpen}
+        autoHideDuration={3000}
+        onClose={() => setLogoutMsgOpen(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
         <Alert onClose={() => setLogoutMsgOpen(false)} severity="success" sx={{ width: '100%' }}>
           Successfully logged out.
         </Alert>
