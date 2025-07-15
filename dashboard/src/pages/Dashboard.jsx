@@ -8,6 +8,8 @@ import Navbar from './Navbar';
 import PropTypes from 'prop-types';
 import ManageProduct from './ManageProduct';
 import { useNavigate } from 'react-router-dom';
+import { IconButton, Tooltip } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 function Dashboard({ user, cart, setCart }) {
   const [products, setProducts] = useState([]);
@@ -24,7 +26,7 @@ function Dashboard({ user, cart, setCart }) {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
-    pauseOnHover: true
+    pauseOnHover: true,
   };
 
   useEffect(() => {
@@ -42,16 +44,17 @@ function Dashboard({ user, cart, setCart }) {
   };
 
   const openModal = (product) => {
-    // navigate to product view page
     navigate(`/product/${product._id}`);
   };
 
   const addToCart = (product) => {
-    setCart(prevCart => {
-      const existing = prevCart.find(item => item._id === product._id);
+    setCart((prevCart) => {
+      const existing = prevCart.find((item) => item._id === product._id);
       if (existing) {
-        return prevCart.map(item =>
-          item._id === product._id ? { ...item, quantity: (item.quantity || 1) + 1 } : item
+        return prevCart.map((item) =>
+          item._id === product._id
+            ? { ...item, quantity: (item.quantity || 1) + 1 }
+            : item
         );
       } else {
         return [...prevCart, { ...product, quantity: 1 }];
@@ -79,7 +82,7 @@ function Dashboard({ user, cart, setCart }) {
       <Navbar cart={cart} scrollToImageSection={scrollToImageSection} />
       {user.role === 'buyer' && (
         <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '16px 0' }}>
-          {/* Removed Dashboard button for buyer */}
+          {/* Buyer does not see admin/seller dashboard button */}
         </div>
       )}
 
@@ -88,10 +91,10 @@ function Dashboard({ user, cart, setCart }) {
           <div><img src="/homepage_standard_1920x.jpg" alt="Slide 1" /></div>
           <div><img src="/515091812_1257302482713820_6347707086264455510_n.png" alt="Slide 2" /></div>
           <div><img src="/513742376_1341673777579540_6777621102215699768_n.png" alt="Slide 3" /></div>
-          <div><img src="/513887849_747829294487602_8840850345417571571_n.png" alt="Slide 3" /></div>
-          <div><img src="/513875411_1073710680873615_4252149083480135960_n.png" alt="Slide 4" /></div>
-          <div><img src="/511289215_4356202001279335_7289149741542506002_n.png" alt="Slide 5" /></div>
-          <div><img src="/516039807_1045705001021558_4025584833444277380_n.png" alt="Slide 6" /></div>
+          <div><img src="/513887849_747829294487602_8840850345417571571_n.png" alt="Slide 4" /></div>
+          <div><img src="/513875411_1073710680873615_4252149083480135960_n.png" alt="Slide 5" /></div>
+          <div><img src="/511289215_4356202001279335_7289149741542506002_n.png" alt="Slide 6" /></div>
+          <div><img src="/516039807_1045705001021558_4025584833444277380_n.png" alt="Slide 7" /></div>
         </Slider>
       </div>
 
@@ -126,26 +129,24 @@ function Dashboard({ user, cart, setCart }) {
                 <div className="description">
                   <p style={{ fontSize: 14, color: '#444', margin: '8px 0 0 0', minHeight: 36 }}>{product.description}</p>
                 </div>
-                <button
-                  style={{
-                    marginTop: 10,
-                    background: '#B85C38',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: 4,
-                    padding: '6px 16px',
-                    cursor: 'pointer',
-                    fontWeight: 500,
-                    fontSize: 15,
-                    transition: 'background 0.2s',
-                  }}
-                  onClick={e => {
-                    e.stopPropagation();
-                    addToCart(product);
-                  }}
-                >
-                  Add to Cart
-                </button>
+                <Tooltip title="Add to Cart">
+                  <IconButton
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      addToCart(product);
+                    }}
+                    sx={{
+                      marginTop: '10px',
+                      color: '#fff',
+                      backgroundColor: '#B85C38',
+                      '&:hover': {
+                        backgroundColor: '#9c482d',
+                      },
+                    }}
+                  >
+                    <ShoppingCartIcon />
+                  </IconButton>
+                </Tooltip>
               </div>
             ))}
           </div>
@@ -162,6 +163,7 @@ function Dashboard({ user, cart, setCart }) {
           </ul>
         </div>
       )}
+
       {user.role === 'seller' && (
         <div>
           <h2>Seller Panel</h2>
@@ -171,18 +173,7 @@ function Dashboard({ user, cart, setCart }) {
           </ul>
         </div>
       )}
-      {/* Only show Buyer Panel for buyers, no manage product/account */}
-      {/* {user.role === 'buyer' && (
-        // <div>
-        //   <h2>Buyer Panel</h2>
-        //   <ul>
-        //     <li>Add to Cart</li>
-        //     <li>Purchase</li>
-        //     <li>Check Details</li>
-        //   </ul>
-        // </div>
-      )} */}
-      {/* Footer */}
+
       <footer style={{ background: '#7B1E3D', color: 'white', marginTop: 48, fontFamily: 'inherit', boxShadow: '0 -2px 16px #0002', width: '100%' }}>
         <div style={{
           display: 'flex',
@@ -242,7 +233,7 @@ function Dashboard({ user, cart, setCart }) {
           }
         `}</style>
       </footer>
-          </div>
+    </div>
   );
 }
 
@@ -251,6 +242,8 @@ Dashboard.propTypes = {
     name: PropTypes.string,
     role: PropTypes.string,
   }),
+  cart: PropTypes.array,
+  setCart: PropTypes.func,
 };
 
 export default Dashboard;
