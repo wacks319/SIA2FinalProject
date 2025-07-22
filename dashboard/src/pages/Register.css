@@ -1,40 +1,122 @@
-.background-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Modal covers full screen and centers content */
+.login-modal {
+  width: 100vw;
   height: 100vh;
-  background: url('/registerBg.jpg') no-repeat center center fixed;
-  background-size: cover;
-}
-
-.form-container {
-  width: 100%;
-  max-width: 400px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.button-container {
+  background: #7b1e3d;
   display: flex;
+  align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2000;
 }
 
-.message-container {
-  margin-top: 20px;
+/* Login form card styling */
+.login-form {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 4px 32px rgba(123, 30, 61, 0.13);
+  padding: 36px 30px 32px 30px;
+  min-width: 340px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  transition: box-shadow 0.2s;
+}
+
+.login-form img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  margin-bottom: 10px;
+  border-radius: 16px;
+  border: none;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(123, 30, 61, 0.22), 0 1.5px 4px #fff;
+}
+
+/* Title and subtitle */
+.login-form h1 {
+  color: #7b1e3d;
+  font-weight: 700;
+  font-family: serif;
+  font-size: 2rem;
+  margin: 0 0 2px 0;
+  letter-spacing: 1px;
   text-align: center;
-  color: #0c1c8d;
-  font-weight: bold;
+}
+.login-form p {
+  color: #7b1e3d99;
+  font-weight: 500;
+  margin-top: -4px;
+  margin-bottom: 0;
+  font-size: 1rem;
+  text-align: center;
 }
 
-input:focus {
-  outline: none;
-  border-color: #0c1c8d;
+/* Material UI fields: pale pink bg, rounded */
+.MuiInputBase-root {
+  background: #F9E6ED !important;
+  border-radius: 8px !important;
+}
+.MuiFormLabel-root {
+  color: #7b1e3d !important;
+}
+
+/* Buttons */
+.login-form .MuiButton-root {
+  font-weight: 600;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  width: 100%;
+  margin-top: 0;
+  text-transform: none;
+}
+.login-form .MuiButton-contained {
+  box-shadow: 0 2px 8px #7b1e3d11;
+  background: #7b1e3d;
+  color: #fff;
+}
+.login-form .MuiButton-contained:hover {
+  background: #60132d;
+}
+.login-form .MuiButton-outlined {
+  border-color: #7b1e3d !important;
+  color: #7b1e3d !important;
+  background: #fff !important;
+  margin-top: 0;
+}
+
+/* Link below the login button */
+.login-form .register-link-box {
+  margin-top: 16px;
+  text-align: center;
+  width: 100%;
+}
+.login-form .register-link {
+  color: #365cff;
+  font-weight: 500;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 15px;
+}
+.login-form .register-link:hover {
+  color: #0032a5;
+  text-decoration: underline;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .login-form {
+    min-width: 90vw;
+    max-width: 95vw;
+    padding: 28px 6vw;
+  }
+  .login-form img {
+    width: 65px;
+    height: 65px;
+  }
 }

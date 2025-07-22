@@ -5,21 +5,19 @@ import {
   Button,
   Modal,
   InputAdornment,
-  FormControlLabel,
-  Checkbox
 } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Lock from '@mui/icons-material/Lock';
 import axios from 'axios';
 import './Login.css';
-// Use the new red Bookly logo for login
-const loginImage = '/Red_Booklyp.png';
+
+// Use the uploaded logo
+const loginImage = '/Red_Booklyp.png'; // Or adjust path based on your public folder
 
 function Login() {
   const [ModalStudOpen, setModalStudOpen] = useState(true);
   const [loginID, setLoginID] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const [loginIDErr, setLoginIDError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
@@ -48,7 +46,7 @@ function Login() {
     if (loginID === sellerEmail && password === sellerPassword) {
       localStorage.setItem('token', 'dummy_seller_token');
       localStorage.setItem('userRole', 'seller');
-      navigate('/ManageProduct'); // Direct seller to Manage Books
+      navigate('/ManageProduct');
       return;
     }
 
@@ -69,7 +67,6 @@ function Login() {
         navigate('/');
       }
     } catch (err) {
-      console.error('Login error:', err);
       if (err.response && err.response.status === 400) {
         setLoginIDError('Invalid login ID or password');
         setPasswordError('Invalid login ID or password');
@@ -86,107 +83,163 @@ function Login() {
 
   return (
     <Modal open={ModalStudOpen} onClose={handleCloseStudModal}>
-      <div className="login-modal" style={{ background: '#FFF8F0', borderRadius: 16, boxShadow: '0 4px 32px rgba(128,0,32,0.10)', padding: 0 }}>
-        <div className="main-login-form" style={{ background: '#FFF8F0', borderRadius: 16 }}>
-          <div className="login-form" style={{ boxShadow: '0 2px 16px rgba(128,0,32,0.08)', borderRadius: 16, padding: 32, background: '#FFF8F0', minWidth: 340, maxWidth: 400, margin: 'auto' }}>
-            <img src={loginImage} alt="Login" className="login-image" style={{ width: 80, height: 80, objectFit: 'contain', marginBottom: 12, borderRadius: 12, background: '#FFF8F0', border: '2px solid #800020', boxShadow: '0 2px 8px rgba(128,0,32,0.10)', display: 'block', marginLeft: 'auto', marginRight: 'auto', filter: 'drop-shadow(0 0 2px #80002022)' }} />
-            <h1 style={{ color: '#800020', fontWeight: 700, marginBottom: 18, fontFamily: 'serif', letterSpacing: 1 }}>Login</h1>
-            <div className="login-forms" style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-              <TextField
-                value={loginID}
-                onChange={(e) => {
-                  setLoginID(e.target.value);
-                  setLoginIDError('');
-                }}
-                id="outlined-login-id"
-                label="Email or Username"
-                variant="outlined"
-                required
-                error={!!loginIDErr}
-                helperText={loginIDErr}
-                fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <AccountCircle sx={{ color: '#800020' }} />
-                    </InputAdornment>
-                  ),
-                  style: { background: '#FFF8F0', borderRadius: 8 }
-                }}
-                InputLabelProps={{ style: { color: '#800020' } }}
-              />
-              <TextField
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  setPasswordError('');
-                }}
-                id="outlined-password"
-                label="Password"
-                variant="outlined"
-                type="password"
-                required
-                error={!!passwordError}
-                helperText={passwordError}
-                fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Lock sx={{ color: '#800020' }} />
-                    </InputAdornment>
-                  ),
-                  style: { background: '#FFF8F0', borderRadius: 8 }
-                }}
-                InputLabelProps={{ style: { color: '#800020' } }}
-              />
-              {/* Forgot Password link for buyers */}
-              {(!loginID || (!loginID.includes('admin') && !loginID.includes('seller'))) && (
-                <div style={{ width: '100%', textAlign: 'right', marginTop: 4 }}>
-                  <a href="/forgot-password" style={{ color: '#D95D39', fontWeight: 500, fontSize: 15, textDecoration: 'underline', cursor: 'pointer' }}>
-                    Forgot password?
-                  </a>
-                </div>
-              )}
-              {/* <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={showPassword}
-                    onChange={(e) => setShowPassword(e.target.checked)}
-                    sx={{ color: '#800020', '&.Mui-checked': { color: '#800020' } }}
-                  />
-                }
-                label={<span style={{ color: '#800020' }}>Show Password</span>}
-              /> */}
-              <Button
-                variant="contained"
-                onClick={handleSubmit}
-                className="login-button sign-in"
-                style={{ backgroundColor: '#800020', color: 'white', fontWeight: 600, borderRadius: 8, fontSize: 18, boxShadow: '0 2px 8px rgba(128,0,32,0.10)' }}
+      <div
+        style={{
+          width: '100vw',
+          height: '100vh',
+          background: '#7b1e3d',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <form
+          onSubmit={handleSubmit}
+          className="login-form"
+          style={{
+            background: '#fff',
+            borderRadius: 24,
+            boxShadow: '0 4px 32px rgba(128,0,32,0.10)',
+            padding: 36,
+            minWidth: 350,
+            maxWidth: 400,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 20,
+          }}
+        >
+          <img
+            src={loginImage}
+            alt="Login"
+            style={{
+              width: 80,
+              height: 80,
+              objectFit: 'contain',
+              marginBottom: 10,
+              borderRadius: 16,
+              border: '2px solid #7b1e3d',
+              boxShadow: '0 2px 8px #7b1e3d22',
+            }}
+          />
+          <h1
+            style={{
+              color: '#7b1e3d',
+              fontWeight: 700,
+              fontFamily: 'serif',
+              fontSize: 30,
+              marginBottom: 0,
+              letterSpacing: 1,
+            }}
+          >
+            Welcome to BookMart
+          </h1>
+          <p style={{ color: '#7b1e3d99', fontWeight: 500, marginTop: -4, marginBottom: 0, fontSize: 15 }}>
+            Sign in to your account
+          </p>
+          <TextField
+            value={loginID}
+            onChange={(e) => {
+              setLoginID(e.target.value);
+              setLoginIDError('');
+            }}
+            label="Email or Username"
+            variant="outlined"
+            required
+            error={!!loginIDErr}
+            helperText={loginIDErr}
+            fullWidth
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AccountCircle sx={{ color: '#7b1e3d' }} />
+                </InputAdornment>
+              ),
+              style: { background: '#F9E6ED', borderRadius: 8 },
+            }}
+            InputLabelProps={{ style: { color: '#7b1e3d' } }}
+          />
+          <TextField
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setPasswordError('');
+            }}
+            label="Password"
+            variant="outlined"
+            type="password"
+            required
+            error={!!passwordError}
+            helperText={passwordError}
+            fullWidth
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Lock sx={{ color: '#7b1e3d' }} />
+                </InputAdornment>
+              ),
+              style: { background: '#F9E6ED', borderRadius: 8 },
+            }}
+            InputLabelProps={{ style: { color: '#7b1e3d' } }}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            style={{
+              backgroundColor: '#7b1e3d',
+              color: 'white',
+              fontWeight: 600,
+              borderRadius: 8,
+              fontSize: 18,
+              marginTop: 8,
+              width: '100%',
+              boxShadow: '0 2px 8px #7b1e3d11',
+            }}
+          >
+            Login
+          </Button>
+          <Button
+            onClick={handleCloseStudModal}
+            variant="contained"
+            style={{
+              backgroundColor: '#b93a5d',
+              color: 'white',
+              fontWeight: 600,
+              borderRadius: 8,
+              fontSize: 18,
+              width: '100%',
+              boxShadow: '0 2px 8px #b93a5d11',
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={handleRegisterClick}
+            style={{
+              borderColor: '#7b1e3d',
+              color: '#7b1e3d',
+              fontWeight: 600,
+              borderRadius: 8,
+              fontSize: 18,
+              width: '100%',
+              height: '48px',
+            }}
+          >
+            Register
+          </Button>
+          <div style={{ marginTop: 10 }}>
+            <span style={{ color: '#888', fontSize: 15 }}>
+              Don't have an account?{' '}
+              <span
+                style={{ color: '#7b1e3d', textDecoration: 'underline', cursor: 'pointer' }}
+                onClick={handleRegisterClick}
               >
-                Login
-              </Button>
-              <Button
-                variant="contained"
-                onClick={handleCloseStudModal}
-                className="login-button cancel"
-                style={{ backgroundColor: '#D95D39', color: 'white', fontWeight: 600, borderRadius: 8, fontSize: 18, boxShadow: '0 2px 8px rgba(217,93,57,0.10)' }}
-              >
-                Cancel
-              </Button>
-              {/* Register button only shown for non-admin/non-seller */}
-              {loginID !== 'admin@system.com' && loginID !== 'seller@system.com' && (
-                <Button
-                  variant="outlined"
-                  onClick={handleRegisterClick}
-                  className="login-button register"
-                  style={{ borderColor: '#800020', color: '#800020', height: '56px', fontWeight: 600, borderRadius: 8, fontSize: 18 }}
-                >
-                  Register
-                </Button>
-              )}
-            </div>
+                Register here
+              </span>
+            </span>
           </div>
-        </div>
+        </form>
       </div>
     </Modal>
   );
