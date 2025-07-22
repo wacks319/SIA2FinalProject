@@ -6,59 +6,41 @@ import './Receipt.css';
 const Receipt = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { cart = [], total = 0, transactionMode = '', billingDetails = {} } = location.state || {};
+    // Updated state keys
+    const { purchased = [], total = 0, paymentMethod = '', buyerAccountNumber = '' } = location.state || {};
 
     return (
-        <Paper className="receipt-paper">
-            <Typography className="receipt-title" variant="h4" gutterBottom>📚 Bookly Order Receipt</Typography>
-            <hr className="receipt-divider" />
-            <Typography className="receipt-label" variant="subtitle1">Payment Method: <span style={{ fontWeight: 'normal' }}>{transactionMode}</span></Typography>
-            {/*
-            {transactionMode === 'Union Bank' && (
-                <Typography className="receipt-item" variant="body2">Bank Account: <span style={{ fontWeight: 'normal' }}>{billingDetails.debitAccount}</span></Typography>
-            )}
-            {transactionMode === 'GCash' && (
-                <Typography className="receipt-item" variant="body2">GCash Number: <span style={{ fontWeight: 'normal' }}>{billingDetails.gcashNumber}</span></Typography>
-            )}
-            */}
-            {/* Show comment if provided */}
-            {billingDetails.comment && (
-                <Typography className="receipt-item" variant="body2">Comment: <span style={{ fontWeight: 'normal' }}>{billingDetails.comment}</span></Typography>
-            )}
-            <hr className="receipt-divider" />
-            <Typography className="receipt-label" variant="subtitle1">Items:</Typography>
-            <div style={{ marginBottom: 8 }}>
-                {cart.map((item, idx) => (
-                    <Typography key={idx} className="receipt-item" variant="body2">
-                        <span style={{ fontWeight: 'bold' }}>{item.name}</span> x {item.quantity} @ ₱{item.price} = <span style={{ color: '#b8860b' }}>₱{item.price * item.quantity}</span>
+        <div style={{ minHeight: '100vh', background: '#f9f6f7', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', paddingTop: 40 }}>
+            <Paper className="receipt-paper" elevation={4} sx={{ borderRadius: 4, p: 4, minWidth: 380, maxWidth: 480, width: '100%', background: '#fff', boxShadow: '0 4px 32px #7b1e3d22' }}>
+                <Typography className="receipt-title" variant="h4" gutterBottom sx={{ color: '#7b1e3d', fontWeight: 700, fontFamily: 'serif', mb: 1, letterSpacing: 1 }}>📚 Bookly Order Receipt</Typography>
+                <hr className="receipt-divider" style={{ border: 'none', borderTop: '1.5px dashed #b8860b33', margin: '12px 0' }} />
+                <Typography className="receipt-label" variant="subtitle1" sx={{ color: '#b8860b', fontWeight: 500 }}>Payment Method: <span style={{ fontWeight: 'normal', color: '#7b1e3d' }}>{paymentMethod}</span></Typography>
+                {buyerAccountNumber && (
+                    <Typography className="receipt-item" variant="body2" sx={{ color: '#7b1e3d' }}>
+                        Bank Account: <span style={{ fontWeight: 'normal' }}>{buyerAccountNumber}</span>
                     </Typography>
-                ))}
-            </div>
-            <hr className="receipt-divider" />
-            <Typography className="receipt-total" variant="h6">Total: <span style={{ color: '#4b2e05' }}>₱{total}</span></Typography>
-            <div style={{ display: 'flex', gap: 12, marginTop: 16 }}>
-                <Button className="receipt-close-btn" variant="contained" onClick={() => navigate('/dashboard')}>Close</Button>
-                {/* <Button className="receipt-close-btn" variant="outlined" style={{ background: '#fff', color: '#b8860b', border: '1.5px solid #b8860b' }} onClick={() => navigate('/dashboard')}>Cancel</Button> */}
-            </div>
-        </Paper>
+                )}
+                <hr className="receipt-divider" style={{ border: 'none', borderTop: '1.5px dashed #b8860b33', margin: '12px 0' }} />
+                <Typography className="receipt-label" variant="subtitle1" sx={{ color: '#b8860b', fontWeight: 500 }}>Items:</Typography>
+                <div style={{ marginBottom: 8 }}>
+                    {purchased.length === 0 ? (
+                        <Typography variant="body2">No items found.</Typography>
+                    ) : (
+                        purchased.map((item, idx) => (
+                            <Typography key={idx} className="receipt-item" variant="body2" sx={{ color: '#7b1e3d', background: '#f9e6ed', borderRadius: 2, px: 1, py: 0.5, mb: 1 }}>
+                                <span style={{ fontWeight: 'bold' }}>{item.name}</span> x {item.quantity} @ ₱{parseFloat(item.price).toFixed(2)} = <span style={{ color: '#b8860b' }}>₱{(item.price * item.quantity).toFixed(2)}</span>
+                            </Typography>
+                        ))
+                    )}
+                </div>
+                <hr className="receipt-divider" style={{ border: 'none', borderTop: '1.5px dashed #b8860b33', margin: '12px 0' }} />
+                <Typography className="receipt-total" variant="h6" sx={{ color: '#7b1e3d', fontWeight: 700 }}>Total: <span style={{ color: '#b8860b' }}>₱{parseFloat(total).toFixed(2)}</span></Typography>
+                <div style={{ display: 'flex', gap: 12, marginTop: 16 }}>
+                    <Button className="receipt-close-btn" variant="contained" sx={{ background: '#7b1e3d', color: '#fff', fontWeight: 600, borderRadius: 2, fontSize: 18, flex: 1 }} onClick={() => navigate('/dashboard')}>Close</Button>
+                </div>
+            </Paper>
+        </div>
     );
-};
-
-Receipt.propTypes = {
-    cart: PropTypes.arrayOf(
-        PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            quantity: PropTypes.number.isRequired,
-            price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
-        })
-    ),
-    billingDetails: PropTypes.shape({
-        // debitAccount: PropTypes.string,
-        // gcashNumber: PropTypes.string,
-        comment: PropTypes.string,
-    }),
-    transactionMode: PropTypes.string,
-    total: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default Receipt;

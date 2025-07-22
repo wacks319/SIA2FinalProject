@@ -198,7 +198,7 @@ const Products = () => {
                                     <img src={`http://localhost:3004/uploads/${product.image}`} alt={product.name} />
                                     <h3>{product.name}</h3>
                                     <p>{product.description}</p>
-                                    <h4>₱ {product.price}</h4>
+                                    <h4>₱ {parseFloat(product.price).toFixed(2)}</h4>
                                     <h4>Stock: {product.stock}</h4>
                                     <div style={{ marginTop: 8 }}>
                                         <span style={{ fontSize: '0.95rem', color: '#b8860b', marginRight: 6 }}> Rating:</span>
@@ -267,7 +267,7 @@ const Products = () => {
                             <Button variant="contained" onClick={() => handleRemoveFromCart(index)} style={{ marginLeft: 8 }}>Remove</Button>
                         </div>
                     ))}
-                    <h3 className="total-price">Total: ₱ {getTotalPrice()}</h3>
+                    <h3 className="total-price">Total: ₱ {getTotalPrice().toFixed(2)}</h3>
                     <div style={{ display: 'flex', gap: 12, marginTop: 16 }}>
                         <Button variant="contained" onClick={handleCheckout}>Checkout</Button>
                         <Button variant="outlined" style={{ background: '#fff', color: '#b8860b', border: '1.5px solid #b8860b' }} onClick={() => setView('shop')}>

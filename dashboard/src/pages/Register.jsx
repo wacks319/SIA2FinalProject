@@ -170,6 +170,21 @@ function Register() {
             }}
             InputLabelProps={{ style: { color: '#7b1e3d' } }}
           />
+          <TextField
+            select
+            value={form.role}
+            onChange={handleChange}
+            name="role"
+            label="Role"
+            variant="outlined"
+            required
+            fullWidth
+            InputLabelProps={{ style: { color: '#7b1e3d' } }}
+            style={{ background: '#F9E6ED', borderRadius: 8 }}
+          >
+            <MenuItem value="buyer">Buyer</MenuItem>
+            <MenuItem value="seller">Seller</MenuItem>
+          </TextField>
         
           {error && <div style={{ color: 'red', fontSize: 15 }}>{error}</div>}
           {success && <div style={{ color: 'green', fontSize: 15 }}>{success}</div>}
